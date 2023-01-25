@@ -14,16 +14,18 @@
     private $cadenaConexion;
     private $conexion;
 
-    //LO QUE QUEREMOS USAR
-    //protected static $dsn = 'mysql:host=db';
-   //protected static $usuario = 'alumnado';
-    //protected static $clave = 'alumnado';
+    private $dsn;
+    private $usuario;
+    private $clave;
+    private $bd;
 
-    /*public function __constructor($dsn, $usuario, $clave){
-        $this->dsn = $dsn;
-        $this->usuario = $usuario;
-        $this->clave = $clave;
-    }*/
+
+    public function __constructor(){
+        $this->dsn = 'mysql:host=db';
+        $this->usuario = 'alumnado';
+        $this->clave = 'alumnado';
+        $this->bd = new PDO($this->dsn, $this->usuario, $this->clave);
+    }
 
     /**
      * Función cuyo objetivo es insertar nuevas filas en una tabla de la base de datos
@@ -35,11 +37,11 @@
      * @param string $consulta consulta a realizar a la BD
      * @param Object @resultado resultado de la consulta
      */
-    static function insertar($tabla, $nombresCampos, $valoresCampos) {
+    public function insertar($tabla, $nombresCampos, $valoresCampos) {
         try{
-            $dsn = 'mysql:host=db';
+            /*$dsn = 'mysql:host=db';
             $usuario = 'alumnado';
-            $clave = 'alumnado';
+            $clave = 'alumnado';*/
 
             $bd = new PDO($dsn, $usuario, $clave);
             $consulta = "INSERT INTO :tabla (:nombresCampos) VALUES (:valoresCampos)";
@@ -63,12 +65,12 @@
      * @param string $consulta consulta a realizar a la BD
      * @param Object @resultado resultado de la consulta
      */
-    static function eliminar($tabla, $id) {
+    public function eliminar($tabla, $id) {
 
         try{
-            $dsn = 'mysql:host=db';
+            /*$dsn = 'mysql:host=db';
             $usuario = 'alumnado';
-            $clave = 'alumnado';
+            $clave = 'alumnado';*/
 
             $bd = new PDO($dsn, $usuario, $clave);
             $consulta = "DELETE FROM :tabla WHERE ID = ':id'";
@@ -92,7 +94,7 @@
      * @param string $consulta consulta a realizar a la BD
      * @param Object @resultado resultado de la consulta
      */
-    static function actualizar($tabla, $id, $nombreCampo, $valorCampo) {
+    public function actualizar($tabla, $id, $nombreCampo, $valorCampo) {
 
         try{
             $dsn = 'mysql:host=db';
@@ -121,7 +123,7 @@
      * @param string $consulta consulta a realizar a la BD
      * @param Object @resultado resultado de la consulta
      */
-    static function leer($tabla, $nombre, $contrasena) {
+    public function leer($tabla, $nombre, $contrasena) {
 
         $dsn = 'mysql:host=db';
         $usuario = 'alumnado';
@@ -171,7 +173,7 @@
      * @param string $consulta consulta a realizar a la BD
      * @param Object @resultado resultado de la consulta
      */   
-    static function listarPorCampo($tabla, $nombreCampo, $valorCampo) {
+    public function listarPorCampo($tabla, $nombreCampo, $valorCampo) {
 
         try{
             $dsn = 'mysql:host=db';
@@ -195,7 +197,7 @@
      * @param string $cadenaConexion dsn de la conexion
      * @param Object $conexion objeto PDO que conecta con la BD
      */
-    static function conectar(){
+    public function conectar(){
         try{
             $cadenaConexion = "mysql:host=".DB_HOST.";dbname=".DB_NOMBRE.";charset=".DB_CHARSET;
             $conexion = new PDO($cadenaConexion, DB_USUARIO, DB_contrasena);
