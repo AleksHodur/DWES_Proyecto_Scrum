@@ -43,7 +43,7 @@
             $usuario = 'alumnado';
             $clave = 'alumnado';*/
 
-            $bd = new PDO($dsn, $usuario, $clave);
+            //$bd = new PDO($dsn, $usuario, $clave);
             $consulta = "INSERT INTO :tabla (:nombresCampos) VALUES (:valoresCampos)";
             $resultado = $bd->prepare($consulta);
             $resultado->execute(array('tabla' => $tabla, 'nombresCampos' => $nombresCampos, 'valoresCampos' => $valoresCampos));
@@ -72,7 +72,7 @@
             $usuario = 'alumnado';
             $clave = 'alumnado';*/
 
-            $bd = new PDO($dsn, $usuario, $clave);
+            //$bd = new PDO($dsn, $usuario, $clave);
             $consulta = "DELETE FROM :tabla WHERE ID = ':id'";
             $resultado = $bd->prepare($consulta);
             $resultado->execute(array('tabla' => $tabla, 'id' => $id));
@@ -97,10 +97,10 @@
     public function actualizar($tabla, $id, $nombreCampo, $valorCampo) {
 
         try{
-            $dsn = 'mysql:host=db';
+            /*$dsn = 'mysql:host=db';
             $usuario = 'alumnado';
             $clave = 'alumnado';
-            $bd = new PDO($dsn, $usuario, $clave);
+            $bd = new PDO($dsn, $usuario, $clave);*/
             $consulta = "UPDATE :tabla SET  :nombreCampo = ':valorCampo' WHERE ID = ':id'";
             $resultado = $bd->prepare($consulta);
             $resultado->execute(array('tabla' => $tabla, 'nombreCampo' => $nombreCampo, 'id' => $id));
@@ -123,7 +123,7 @@
      * @param string $consulta consulta a realizar a la BD
      * @param Object @resultado resultado de la consulta
      */
-    public function leer($tabla, $nombre, $contrasena) {
+    public function leer($seleccion, $tabla, $nombre, $contrasena) {
 
         $dsn = 'mysql:host=db';
         $usuario = 'alumnado';
@@ -140,11 +140,11 @@
         try{
             
             $bd = new PDO($dsn, $usuario, $clave);
-            $consulta = "SELECT * FROM :tabla WHERE nombre = ':nombre' AND contrasena = ':contrasena';";
+            $consulta = "SELECT $seleccion FROM :tabla WHERE $condicion;";
             echo "<p>He llegado aquí 1</p>";
             $resultado = $bd->prepare($consulta);
             echo "<p>He llegado aquí 2</p>";
-            $resultado->execute(array(':tabla' => $tabla, ':nombre' => $nombre, ':contrasena' => $contrasena));
+            $resultado->execute(array(':tabla' => $tabla));
             echo "<p>He llegado aquí 3</p>";
             $filas = $resultado->rowCount();
             echo "<p>He llegado aquí 4</p>";
