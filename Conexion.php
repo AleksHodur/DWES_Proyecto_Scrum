@@ -153,7 +153,7 @@
             if($filas > 0){
                 $existe = true;
             }
-            $bd = null;
+            //$bd = null;
 
         }catch(Exception $e){
             echo "<p>La fila no existe</p>";
@@ -177,7 +177,7 @@
             foreach($resultado as $elemento){
                 $id = $elemento['id'];
             }
-            $bd = null;
+            //$bd = null;
 
         }catch(Exception $e){
             echo "<p>La fila no existe</p>";
