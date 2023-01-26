@@ -162,6 +162,31 @@
         return $existe;
     }
 
+    public function buscarId($tabla, $condiciones, $arrayExecute){
+
+        $id = -1;
+
+        try{
+            
+            $bd = new PDO($dsn, $usuario, $clave);
+            $consulta = "SELECT * FROM :tabla WHERE $condiciones;";
+            $resultado = $bd->prepare($consulta);
+            $resultado->execute($arrayExecute);
+            $filas = $resultado->rowCount();
+
+            foreach($resultado as $elemento){
+                $id = $elemento['id'];
+            }
+            $bd = null;
+
+        }catch(Exception $e){
+            echo "<p>La fila no existe</p>";
+        }
+
+        return $id;
+    }
+    
+
 
     /**
      * Función cuyo objetivo es leer filas de una tabla de la base de datos
