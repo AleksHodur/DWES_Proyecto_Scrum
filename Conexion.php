@@ -8,24 +8,46 @@
   
   /**
    * Clase con funciones estáticas que interactúan con la base de datos
-   * @author Aleksandra y Pablo
+   * @author Aleksandra
    */
   class Conexion extends Base{
     private $cadenaConexion;
     private $conexion;
 
-    private $dsn;
-    private $usuario;
-    private $clave;
-    private $bd;
+    /*public $dsn = '';
+    public $usuario = '';
+    public $clave = '';
+    public $bd = new PDO('mysql:host=db;dbname=bddPodcast;', 'alumnado', 'alumnado');
 
+    /**
+     * Función cuyo objetivo es conectar con la base de datos
+     * @author Pablo
+     * @param string $cadenaConexion dsn de la conexion
+     * @param Object $conexion objeto PDO que conecta con la BD
+     */
+    public function conectar(){
+        try{
+            $cadenaConexion = "mysql:host=".DB_HOST.";dbname=".DB_NOMBRE.";charset=".DB_CHARSET;
+            $conexion = new PDO($cadenaConexion, DB_USUARIO, DB_contrasena);
+            return $conexion;
+            echo "Conexion Establecida";
 
-    public function __constructor(){
-        $this->dsn = 'mysql:host=db';
+       }catch(Exception $ex){
+         echo "Error de conexion";
+       }
+   }
+
+    /*public function __constructor(){
+        $this->dsn = 'mysql:host=db;dbname=bddPodcast;';
         $this->usuario = 'alumnado';
         $this->clave = 'alumnado';
         $this->bd = new PDO($this->dsn, $this->usuario, $this->clave);
-    }
+
+    }*/
+
+    /*public function iniciarPDO(){
+        $this->bd = new PDO($this->dsn, $this->usuario, $this->clave);
+    }*/
 
     /**
      * Función cuyo objetivo es insertar nuevas filas en una tabla de la base de datos
@@ -45,7 +67,7 @@
 
             //$bd = new PDO($dsn, $usuario, $clave);
             $consulta = "INSERT INTO :tabla (:nombresCampos) VALUES (:valoresCampos)";
-            $resultado = $bd->prepare($consulta);
+            $resultado = $this->conectar()->prepare($consulta);
             $resultado->execute(array('tabla' => $tabla, 'nombresCampos' => $nombresCampos, 'valoresCampos' => $valoresCampos));
 
             return true;
@@ -74,7 +96,7 @@
 
             //$bd = new PDO($dsn, $usuario, $clave);
             $consulta = "DELETE FROM :tabla WHERE ID = ':id'";
-            $resultado = $bd->prepare($consulta);
+            $resultado = $this->conectar()->prepare($consulta);
             $resultado->execute(array('tabla' => $tabla, 'id' => $id));
 
             return "Borrado realizado con éxito";
@@ -102,7 +124,7 @@
             $clave = 'alumnado';
             $bd = new PDO($dsn, $usuario, $clave);*/
             $consulta = "UPDATE :tabla SET  :nombreCampo = ':valorCampo' WHERE ID = ':id'";
-            $resultado = $bd->prepare($consulta);
+            $resultado = $this->conectar()->prepare($consulta);
             $resultado->execute(array('tabla' => $tabla, 'nombreCampo' => $nombreCampo, 'id' => $id));
 
             return "Actualización realizada con éxito";
@@ -142,7 +164,7 @@
             $bd = new PDO($dsn, $usuario, $clave);
             $consulta = "SELECT $seleccion FROM :tabla WHERE ID = ':id';";
             echo "<p>He llegado aquí 1</p>";
-            $resultado = $bd->prepare($consulta);
+            $resultado = $this->conectar()->prepare($consulta);
             echo "<p>He llegado aquí 2</p>";
             $resultado->execute(array(':tabla' => $tabla, ':id' => $id));
             echo "<p>He llegado aquí 3</p>";
@@ -168,9 +190,9 @@
 
         try{
             
-            $bd = new PDO($dsn, $usuario, $clave);
-            $consulta = "SELECT * FROM :tabla WHERE $condiciones;";
-            $resultado = $bd->prepare($consulta);
+            //$this->bd = new PDO($this->dsn, $this->usuario, $this->clave);
+            $consulta = "SELECT * FROM $tabla WHERE $condiciones;";
+            $resultado = $this->conectar()->prepare($consulta);
             $resultado->execute($arrayExecute);
             $filas = $resultado->rowCount();
 
@@ -206,7 +228,7 @@
             $clave = 'alumnado';
             $bd = new PDO($dsn, $usuario, $clave);
             $consulta = "SELECT FROM :tabla WHERE  :nombreCampo = ':valorCampo'";
-            $resultado = $bd->prepare($consulta);
+            $resultado = $this->conectar()->prepare($consulta);
             $resultado->execute(array('tabla' => $tabla, 'nombreCampo' => $nombreCampo,'valorCampo' => $valorCampo));
 
             return "Consulta realizada con éxito";
@@ -216,20 +238,5 @@
         }
     }
 
-    /**
-     * Función cuyo objetivo es conectar con la base de datos
-     * @author Pablo
-     * @param string $cadenaConexion dsn de la conexion
-     * @param Object $conexion objeto PDO que conecta con la BD
-     */
-    public function conectar(){
-        try{
-            $cadenaConexion = "mysql:host=".DB_HOST.";dbname=".DB_NOMBRE.";charset=".DB_CHARSET;
-            $conexion = new PDO($cadenaConexion, DB_USUARIO, DB_contrasena);
-            echo "Conexion Establecida";
-
-       }catch(Exception $ex){
-         echo "Error de conexion";
-       }
-   }
+    
 }
