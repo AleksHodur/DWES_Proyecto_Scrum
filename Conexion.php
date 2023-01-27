@@ -59,16 +59,11 @@
      * @param string $consulta consulta a realizar a la BD
      * @param Object @resultado resultado de la consulta
      */
-    public function insertar($tabla, $nombresCampos, $valoresCampos) {
+    public function insertar($tabla, $nombresCampos, $valoresCampos, $arrayExecute) {
         try{
-            /*$dsn = 'mysql:host=db';
-            $usuario = 'alumnado';
-            $clave = 'alumnado';*/
-
-            //$bd = new PDO($dsn, $usuario, $clave);
-            $consulta = "INSERT INTO :tabla (:nombresCampos) VALUES (:valoresCampos)";
+            $consulta = "INSERT INTO $tabla ($nombresCampos) VALUES (:valoresCampos);";
             $resultado = $this->conectar()->prepare($consulta);
-            $resultado->execute(array('tabla' => $tabla, 'nombresCampos' => $nombresCampos, 'valoresCampos' => $valoresCampos));
+            $resultado->execute($arrayExecute);
 
             return true;
 
@@ -90,14 +85,9 @@
     public function eliminar($tabla, $id) {
 
         try{
-            /*$dsn = 'mysql:host=db';
-            $usuario = 'alumnado';
-            $clave = 'alumnado';*/
-
-            //$bd = new PDO($dsn, $usuario, $clave);
-            $consulta = "DELETE FROM :tabla WHERE ID = ':id'";
+            $consulta = "DELETE FROM $tabla WHERE ID = :id;";
             $resultado = $this->conectar()->prepare($consulta);
-            $resultado->execute(array('tabla' => $tabla, 'id' => $id));
+            $resultado->execute(array('id' => $id));
 
             return "Borrado realizado con éxito";
 
@@ -119,13 +109,9 @@
     public function actualizar($tabla, $id, $nombreCampo, $valorCampo) {
 
         try{
-            /*$dsn = 'mysql:host=db';
-            $usuario = 'alumnado';
-            $clave = 'alumnado';
-            $bd = new PDO($dsn, $usuario, $clave);*/
-            $consulta = "UPDATE :tabla SET  :nombreCampo = ':valorCampo' WHERE ID = ':id'";
+            $consulta = "UPDATE $tabla SET  $nombreCampo = ':valorCampo' WHERE ID = :id;";
             $resultado = $this->conectar()->prepare($consulta);
-            $resultado->execute(array('tabla' => $tabla, 'nombreCampo' => $nombreCampo, 'id' => $id));
+            $resultado->execute(array('valorCampo' => $valorCampo, 'id' => $id));
 
             return "Actualización realizada con éxito";
 
@@ -146,18 +132,6 @@
      * @param Object @resultado resultado de la consulta
      */
     public function leerPorId($tabla, $id) {
-
-        /*$dsn = 'mysql:host=db';
-        $usuario = 'alumnado';
-        $clave = 'alumnado';
-
-        echo "<p>Esto es Conexión:";
-        echo "<p>Nombre tabla: $tabla</p>";
-        echo "<p>Usuario: $nombre</p>
-        <p>Contrasena: $contrasena</p>";*/
-
-
-        //$existe = false;
 
         try{
             
@@ -192,7 +166,6 @@
 
         try{
             
-            //$this->bd = new PDO($this->dsn, $this->usuario, $this->clave);
             $consulta = "SELECT * FROM $tabla WHERE $condiciones;";
             $resultado = $this->conectar()->prepare($consulta);
             $resultado->execute($arrayExecute);
@@ -201,7 +174,6 @@
             foreach($resultado as $elemento){
                 $id = $elemento['id'];
             }
-            //$bd = null;
 
         }catch(Exception $e){
             echo "<p>La fila no existe</p>";
@@ -222,16 +194,13 @@
      * @param string $consulta consulta a realizar a la BD
      * @param Object @resultado resultado de la consulta
      */   
-    public function listarPorCampo($tabla, $nombreCampo, $valorCampo) {
+    public function listarPorCampo($tabla, $nombreCampo, $condicion, $arrayExecute) {
 
         try{
-            $dsn = 'mysql:host=db';
-            $usuario = 'alumnado';
-            $clave = 'alumnado';
-            $bd = new PDO($dsn, $usuario, $clave);
-            $consulta = "SELECT FROM :tabla WHERE  :nombreCampo = ':valorCampo'";
+            
+            $consulta = "SELECT FROM $tabla WHERE $condicion";
             $resultado = $this->conectar()->prepare($consulta);
-            $resultado->execute(array('tabla' => $tabla, 'nombreCampo' => $nombreCampo,'valorCampo' => $valorCampo));
+            $resultado->execute($arrayExecute);
 
             return "Consulta realizada con éxito";
 
