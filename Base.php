@@ -89,7 +89,7 @@
 				}
 			}
 
-      }
+      
 
 			$bd = null;
 		} catch (PDOException $e) {
@@ -98,7 +98,7 @@
 
 		}
 	}
-}
+ }
 
 $base = new Base();
 $base->creaBases();
