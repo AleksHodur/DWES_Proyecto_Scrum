@@ -59,11 +59,11 @@
      * @param string $consulta consulta a realizar a la BD
      * @param Object @resultado resultado de la consulta
      */
-    public function insertar($tabla, $nombresCampos, $valoresCampos, $arrayExecute) {
+    public function insertar($tabla, $nombresCampos, $valoresCampos) {
         try{
             $consulta = "INSERT INTO $tabla ($nombresCampos) VALUES (:valoresCampos);";
             $resultado = $this->conectar()->prepare($consulta);
-            $resultado->execute($arrayExecute);
+            $resultado->execute(array("valoresCampos" => $valoresCampos));
 
             return true;
 

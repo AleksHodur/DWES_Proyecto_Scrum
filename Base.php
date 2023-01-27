@@ -1,115 +1,117 @@
 <?php
+
 /**
- * CLASE Base
- * 
- * En ella creamos la base de datos y la tabla
- * 
+ * Clase base de datos 
  * @author Pablo Fernandez
  */
-class Base {
-	/**
-	 * 
-	 * @var object
-	 */
+
+ class Base {
+//objeto PDO para usar la base de datos
 	protected $bd;
-/**
- *La funcion crea la base de datos y la tabla 
- */
-public function creaBases(){
+
+	//funcion para crear la base
+	public function creaBases(){
+		//Conexion primero para asignar permisos a alumnado para relacionar las tablas
 		/**
-	 * Crea los atributos para conectarse
-	 * @var string dsn
-	 * @var string usuario
-	 * @var string clave 
-	 */
-  $dsn = 'mysql:host=db';
-  $usuario = 'alumnado';
-  $clave = 'alumnado';
-  $bd = new PDO($dsn, $usuario, $clave);
+		 * @param string $root nombre del root
+		 * @param string $usuarioRoot para el nombre del usuario
+		 * @param string $claveRoot la clave del root
+		 * @param Object $bdRoot objeto de la base
+		 * @param string $dsn nombre del dsn
+	     	 * @param string $usuario usuario de la BD
+     		 * @param string $clave clave de la BD
+     	 	 * @param Object $bd objecto PDO de la BD
+		 * @param string $permisos para dar permisos al usuario alumnado
+		 */
+		$root = 'mysql:host=db';
+		$usuarioRoot = 'root';
+		$claveRoot = 'alumnado';
+		$bdRoot = new PDO($root, $usuarioRoot, $claveRoot);
+		$permisos = $bdRoot ->query("GRANT ALL PRIVILEGES ON *.* TO alumnado;");
 
 
-  /**
-   * Lo hacemos con un try catch la creacion de la base
-   */
-  try {
-
-  	  	$consulta = $bd->query ("CREATE DATABASE IF NOT EXISTS bddPodcast CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
-
-		$bd = null;
+		$dsn = 'mysql:host=db';
+		$usuario = 'alumnado';
+		$clave = 'alumnado';
 		$bd = new PDO($dsn, $usuario, $clave);
-	
-    	//if($consulta != null){
 
-/**
- * Realiza la creacion de la base 
- */
-    		echo "<p>Base de datos creada</p>";
-    		$usarBase=$bd->query("USE bddPodcast");
-    		$tablas = [
-        			'usuario' => "CREATE TABLE IF NOT EXISTS usuario (
-          				id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-          				nombre VARCHAR(40) NOT NULL,
-          				contrasena VARCHAR(40) NOT NULL,
-						tipo VARCHAR(15) NOT NULL
-        			)",
-     	 	];
-				/**
-	 * Saca el nombre de la tabla craeada
-	 */
-    		foreach ($tablas as $nombre => $sql){
-        			if($bd->query($sql)){
-          			echo "<p>Tabla $nombre creada</p>\n";
-    		 }
-      	   }
-    	 /*}else{
-          $borrarBase = $bd->query("DROP DATABASE bddPodcast");
-          $consulta = $bd->query ("CREATE DATABASE IF NOT EXISTS bddPodcast");
-          $usarBase=$bd->query("USE bddPodcast");
-      		$tablas = [
-				'usuario' => "CREATE TABLE  IF NOT EXISTS usuario (
-					id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-					nombre VARCHAR(40) NOT NULL,
-					contrasena VARCHAR(40) NOT NULL,
-				  tipo VARCHAR(15) NOT NULL
-			  )",
-       	 	];
-				foreach ($tablas as $nombre => $sql){
-        			if($bd->query($sql)){
-          			echo "<p>Tabla $nombre creada.</p>\n";
-    		 }
-      	   }
+		try {
 
-      }*/
+			/**
+			 * @param string $consulta para crear la base de datos
+			 */
+			$consulta = $bd->query ("CREATE DATABASE IF NOT EXISTS bddPodcast CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
 
-	  $bd = null;
-/**
-	 * En caso de fallo saldria el siguiente error
-	 */
-  } catch (PDOException $e) {
-    echo "Fallo la conexion:" . $e->getMessage();
-	echo "<p>Fallo de creación BD</p>";
+			$bd = null;
+			$bd = new PDO($dsn, $usuario, $clave);
+			//echo "<p>Base de datos creada</p>";
+			$usarBase=$bd->query("USE bddPodcast");
+		/**
+ 		* @param array $tablaUsurio contiene la creacion de su tabla	 
+ 		*/
+			$tablasUsuario = [
+				'usuario' => "CREATE TABLE IF NOT EXISTS usuario (
+					id INTEGER(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+					correo VARCHAR(40) NOT NULL,
+					contrasena VARCHAR(12) NOT NULL,
+					tipo INTEGER(1) NOT NULL,
+					descripcion VARCHAR(50),
+					CONSTRAINT PK_Tipo FOREIGN KEY (tipo)
+					REFERENCES perfiles(id)
+				)"
+			];
 
-  }
+		/**
+		 * @param array $tablaPerfil contiene la creacion de su tabla
+		 */
+			$tablaPerfil = [
+				'perfiles' => "CREATE TABLE IF NOT EXISTS perfiles(
+					id INTEGER(1) PRIMARY KEY UNSIGNED AUTO_INCREMENT,
+					nombre VARCHAR(8) NOT NULL,
+					descripcion VARCHAR(50)
+				)"
+			];
 
-  /*try{
+		//EJECUTA LAS CONSULTAS PARA CREAR LA TABLA PERFIL
+			foreach ($tablaPerfil as $nombre => $sql){
+					if($bd->query($sql)){
+						//echo "<p>Tabla $nombre creada</p>\n";
+						}
+			}
 
-	$consulta = $this->bd->query("
-	CREATE TABLE usuario (
-		id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-		nombre VARCHAR(40) NOT NULL,
-		contrasena VARCHAR(40) NOT NULL,
-	  	tipo VARCHAR(15) NOT NULL
-  	)");
+		/**
+		 * @param string $indice añade un indice para poder enlazar las tablas
+		 */
+			$indice = $bd ->query("ALTER TABLE perfiles ADD INDEX (nombre);");
 
-  }catch (PDOException $e) {
-    echo "Fallo la conexion:" . $e->getMessage();
-	echo "<p>Fallo de creación tablas</p>";
-  }*/
- }
+		//EJECTUA LAS CONSULTA PARA CREAR LA TABLA USUARIO
+			foreach ($tablasUsuario as $nombre => $sql){
+				if($bd->query($sql)){
+					//echo "<p>Tabla $nombre creada</p>\n";
+				}
+			}
+
+		/**
+		 * @param string $datosPerfiles para insertar los datos en la tabla Perfiles
+		 * @param string $datosUsuario  para insertar los datos en la tabla Usuarios
+		 * */	
+			$datosPerfiles = $bd->query("INSERT INTO perfiles (nombre, descripcion) VALUES
+				('Alumno', 'puede subir podcasts'),
+				('Profesor', 'tiene acceso a toda la gestion');");
+
+			$datosUsuarios = $bd->query("INSERT INTO usuario ( correo, contrasena, nombre, descripcion) VALUES
+				('juan@gmail.com', 'hola', 'Alumno', 'puede subir podcasts'),
+				('juan@gmail.es', 'hola', 'Profesor', 'tiene acceso a toda la gestion');");
+
+			$bd = null;
+		} catch (PDOException $e) {
+			echo "Fallo la conexion:" . $e->getMessage();
+			echo "<p>Fallo de creación BD</p>";
+
+		}
+	}
 }
-/**
-  * Crea un objeto de la clase y ejecuta la funcion
-  */
+
 $base = new Base();
 $base->creaBases();
 ?>
