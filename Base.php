@@ -89,17 +89,7 @@
 				}
 			}
 
-		/**
-		 * @param string $datosPerfiles para insertar los datos en la tabla Perfiles
-		 * @param string $datosUsuario  para insertar los datos en la tabla Usuarios
-		 * */	
-			$datosPerfiles = $bd->query("INSERT INTO perfil (nombre, descripcion) VALUES
-				('Alumno', 'puede subir podcasts'),
-				('Profesor', 'tiene acceso a toda la gestion');");
-
-			$datosUsuarios = $bd->query("INSERT INTO usuario ( correo, contrasena, tipo, descripcion) VALUES
-				('juan@gmail.com', 'hola', 1, 'puede subir podcasts'),
-				('juan@gmail.es', 'hola', 2, 'tiene acceso a toda la gestion');");
+      }
 
 			$bd = null;
 		} catch (PDOException $e) {
