@@ -1,5 +1,4 @@
 <?php
-  require_once ("Base.php");
   define ('DB_HOST','db');
   define ('DB_USUARIO','alumnado');
   define ('DB_contrasena','alumnado');
@@ -10,7 +9,7 @@
    * Clase con funciones estáticas que interactúan con la base de datos
    * @author Aleksandra
    */
-  class Conexion extends Base{
+  class Conexion{
     private $cadenaConexion;
     private $conexion;
 
@@ -59,11 +58,11 @@
      * @param string $consulta consulta a realizar a la BD
      * @param Object @resultado resultado de la consulta
      */
-    public function insertar($tabla, $nombresCampos, $valoresCampos, $arrayExecute) {
+    public function insertar($tabla, $nombresCampos, $valoresCampos) {
         try{
             $consulta = "INSERT INTO $tabla ($nombresCampos) VALUES (:valoresCampos);";
             $resultado = $this->conectar()->prepare($consulta);
-            $resultado->execute($arrayExecute);
+            $resultado->execute(array("valoresCampos" => $valoresCampos));
 
             return true;
 
@@ -134,7 +133,7 @@
     public function leerPorId($tabla, $id) {
 
         try{
-            
+            $campos = [];
             $consulta = "SELECT * FROM $tabla WHERE ID = :id;";
             echo "<p>He llegado aquí 1</p>";
             $resultado = $this->conectar()->prepare($consulta);
@@ -143,10 +142,10 @@
             echo "<p>He llegado aquí 3</p>";
 
             foreach($resultado as $elemento){
-                $campos = [];
+                
 
                 $campos['id'] = $elemento['id'];
-                $campos['nombre'] = $elemento['nombre'];
+                $campos['correo'] = $elemento['correo'];
                 $campos['contrasena'] = $elemento['contrasena'];
                 $campos['tipo'] = $elemento['tipo'];//cambiar por perfil
             }
@@ -155,7 +154,7 @@
             //$bd = null;
 
         }catch(Exception $e){
-            echo "<p>La fila no existe</p>";
+            echo "<p>La fila no existe leerporid</p>";
         }
 
     }
@@ -170,13 +169,14 @@
             $resultado = $this->conectar()->prepare($consulta);
             $resultado->execute($arrayExecute);
             $filas = $resultado->rowCount();
-
+            
             foreach($resultado as $elemento){
                 $id = $elemento['id'];
+                echo $id."id";
             }
 
         }catch(Exception $e){
-            echo "<p>La fila no existe</p>";
+            echo "<p>La fila no existe buscarid</p>";
         }
 
         return $id;
