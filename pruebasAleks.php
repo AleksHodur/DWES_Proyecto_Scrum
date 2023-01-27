@@ -17,3 +17,7 @@ if($id < 0){
 }else{
     echo "<p>El usuario existe. Id: $id</p>";
 }
+
+$campos = $conexion->leerPorId('usuario', $id);
+
+echo "<pre>" . print_r($campos) . "</pre>";

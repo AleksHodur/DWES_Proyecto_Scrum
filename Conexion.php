@@ -145,43 +145,45 @@
      * @param string $consulta consulta a realizar a la BD
      * @param Object @resultado resultado de la consulta
      */
-    public function leerPorId($seleccion, $tabla, $id) {
+    public function leerPorId($tabla, $id) {
 
-        $dsn = 'mysql:host=db';
+        /*$dsn = 'mysql:host=db';
         $usuario = 'alumnado';
         $clave = 'alumnado';
 
         echo "<p>Esto es Conexión:";
         echo "<p>Nombre tabla: $tabla</p>";
         echo "<p>Usuario: $nombre</p>
-        <p>Contrasena: $contrasena</p>";
+        <p>Contrasena: $contrasena</p>";*/
 
 
-        $existe = false;
+        //$existe = false;
 
         try{
             
-            $bd = new PDO($dsn, $usuario, $clave);
-            $consulta = "SELECT $seleccion FROM :tabla WHERE ID = ':id';";
+            $consulta = "SELECT * FROM $tabla WHERE ID = :id;";
             echo "<p>He llegado aquí 1</p>";
             $resultado = $this->conectar()->prepare($consulta);
             echo "<p>He llegado aquí 2</p>";
-            $resultado->execute(array(':tabla' => $tabla, ':id' => $id));
+            $resultado->execute(array('id' => $id));
             echo "<p>He llegado aquí 3</p>";
-            $filas = $resultado->rowCount();
-            echo "<p>He llegado aquí 4</p>";
 
+            foreach($resultado as $elemento){
+                $campos = [];
 
-            if($filas > 0){
-                $existe = true;
+                $campos['id'] = $elemento['id'];
+                $campos['nombre'] = $elemento['nombre'];
+                $campos['contrasena'] = $elemento['contrasena'];
+                $campos['tipo'] = $elemento['tipo'];//cambiar por perfil
             }
+
+            return $campos;
             //$bd = null;
 
         }catch(Exception $e){
             echo "<p>La fila no existe</p>";
         }
 
-        return $existe;
     }
 
     public function buscarId($tabla, $condiciones, $arrayExecute){
