@@ -23,11 +23,11 @@ class Perfil {
     }
     
     public function setNombre($nombre) {
-        $this->id = $id;
+        $this->id = $nombre;
     }
     
     public function setDescripcion($descripcion) {
-        $this->id = $id;
+        $this->id = $descripcion;
     }
 
     /**

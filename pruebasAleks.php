@@ -2,15 +2,15 @@
 
 require_once "Conexion.php";
 
-$usuario = 'juan';
-$contrasena = '1';
+$usuario = 'juan@gmail.com';
+$contrasena = 'hola';
 
 $conexion = new Conexion();
 //$conexion->conectar();
 //$conexion->iniciarPDO();
 
-$arrayId = array('usuario' => $usuario, 'contrasena' => $contrasena);
-$id = $conexion->buscarId('usuario', 'nombre = :usuario AND contrasena = :contrasena', $arrayId);
+$arrayId = array('correo' => $usuario, 'contrasena' => $contrasena);
+$id = $conexion->buscarId('usuario', 'correo = :correo AND contrasena = :contrasena', $arrayId);
 
 if($id < 0){
     echo "<p>El usuario no existe</p>";
