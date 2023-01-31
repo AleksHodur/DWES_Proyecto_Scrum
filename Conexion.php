@@ -7,20 +7,15 @@
   
   /**
    * Clase con funciones estáticas que interactúan con la base de datos
-   * @author Aleksandra
+   * @author Aleksandra y Pablo
    */
-  class Conexion {
+  class Conexion{
     private $cadenaConexion;
     private $conexion;
 
-    /*public $dsn = '';
-    public $usuario = '';
-    public $clave = '';
-    public $bd = new PDO('mysql:host=db;dbname=bddPodcast;', 'alumnado', 'alumnado');
-
     /**
      * Función cuyo objetivo es conectar con la base de datos
-     * @author Pablo
+     * @author Pablo y  Aleksandra
      * @param string $cadenaConexion dsn de la conexion
      * @param Object $conexion objeto PDO que conecta con la BD
      */
@@ -36,27 +31,12 @@
        }
    }
 
-    /*public function __constructor(){
-        $this->dsn = 'mysql:host=db;dbname=bddPodcast;';
-        $this->usuario = 'alumnado';
-        $this->clave = 'alumnado';
-        $this->bd = new PDO($this->dsn, $this->usuario, $this->clave);
-
-    }*/
-
-    /*public function iniciarPDO(){
-        $this->bd = new PDO($this->dsn, $this->usuario, $this->clave);
-    }*/
-
     /**
      * Función cuyo objetivo es insertar nuevas filas en una tabla de la base de datos
      * @author Aleksandra
-     * @param string $dsn nombre del dsn
-     * @param string $usuario usuario de la BD
-     * @param string $clave clave de la BD
-     * @param Object $bd objecto PDO de la BD
-     * @param string $consulta consulta a realizar a la BD
-     * @param Object @resultado resultado de la consulta
+     * @param string $tabla nombre de la tabla
+     * @param string $nombresCampos los nombres de los campos a insertar
+     * @param string $valoresCampos los valores de los campos a insertar
      */
     public function insertar($tabla, $nombresCampos, $valoresCampos) {
         try{
@@ -74,12 +54,8 @@
     /**
      * Función cuyo objetivo es eliminar filas de tabla de la base de datos
      * @author Aleksandra
-     * @param string $dsn nombre del dsn
-     * @param string $usuario usuario de la BD
-     * @param string $clave clave de la BD
-     * @param Object $bd objecto PDO de la BD
-     * @param string $consulta consulta a realizar a la BD
-     * @param Object @resultado resultado de la consulta
+     * @param string $tabla nombre de la tabla a la que pertenece la fila
+     * @param string $id id de la fila a eliminar
      */
     public function eliminar($tabla, $id) {
 
@@ -98,12 +74,10 @@
     /**
      * Función cuyo objetivo es actualizar filas de una tabla de la base de datos
      * @author Aleksandra
-     * @param string $dsn nombre del dsn
-     * @param string $usuario usuario de la BD
-     * @param string $clave clave de la BD
-     * @param Object $bd objecto PDO de la BD
-     * @param string $consulta consulta a realizar a la BD
-     * @param Object @resultado resultado de la consulta
+     * @param string $tabla nombre de la tabla
+     * @param string $id de la fila a actualizar
+     * @param string $nombreCampo nombre del campo a actualizar
+     * @param string $valorCampo nuevo valor del campo
      */
     public function actualizar($tabla, $id, $nombreCampo, $valorCampo) {
 
@@ -121,25 +95,19 @@
 
     /**
      * Función cuyo objetivo es leer filas de una tabla de la base de datos
+     * y devolver todos sus campos
      * @author Aleksandra
-     * @param string $dsn nombre del dsn
-     * @param string $usuario usuario de la BD
-     * @param string $clave clave de la BD
-     * @param bool $existe booleano que devuelve la función, que será true si la consulta devuelve resultados
-     * @param Object $bd objecto PDO de la BD
-     * @param string $consulta consulta a realizar a la BD
-     * @param Object @resultado resultado de la consulta
+     * @param string $tabla nombre de la tabla
+     * @param string $id id de la fila por leer
+     * @return array $campos array de los campos de la fila con sus valores
      */
     public function leerPorId($tabla, $id) {
 
         try{
             $campos = [];
             $consulta = "SELECT * FROM $tabla WHERE ID = :id;";
-            echo "<p>He llegado aquí 1</p>";
             $resultado = $this->conectar()->prepare($consulta);
-            echo "<p>He llegado aquí 2</p>";
             $resultado->execute(array('id' => $id));
-            echo "<p>He llegado aquí 3</p>";
 
             foreach($resultado as $elemento){
                 
@@ -159,6 +127,13 @@
 
     }
 
+    /**
+     * Función cuyo objetivo es buscar el id de una fila que coincida con la condición
+     * Si no existe dicha fila, devuelve -1. Si existe, devuelve el id
+     * @param string $tabla nombre de la tabla a consultar
+     * @param string $condiciones las condiciones que se desea consultar
+     * @param array $arrayExecute array de índice valor que se le pasa objeto resultado para realizar execute()
+     */
     public function buscarId($tabla, $condiciones, $arrayExecute){
 
         $id = -1;
@@ -187,14 +162,11 @@
     /**
      * Función cuyo objetivo es leer filas de una tabla de la base de datos
      * @author Aleksandra
-     * @param string $dsn nombre del dsn
-     * @param string $usuario usuario de la BD
-     * @param string $clave clave de la BD
-     * @param Object $bd objecto PDO de la BD
-     * @param string $consulta consulta a realizar a la BD
-     * @param Object @resultado resultado de la consulta
+     * @param string $tabla nombre de la tabla
+     * @param string $condicion condición que se desea consultar
+     * @param array $arrayExecute array de índice valor que se le pasa objeto resultado para realizar execute()
      */   
-    public function listarPorCampo($tabla, $nombreCampo, $condicion, $arrayExecute) {
+    public function listarPorCampo($tabla, $condicion, $arrayExecute) {
 
         try{
             
