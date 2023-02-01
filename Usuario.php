@@ -55,6 +55,7 @@ class Usuario {
             return false;
         } else {
             echo "Se ha encontrado $id Id";
+            asignarAtributos($id);
             return true;
         }
     }
@@ -64,31 +65,31 @@ class Usuario {
         $error = false;
 
         if(isset($atributos['id'])){
-            setId($atributos['id']);
+            $this->setId($atributos['id']);
         }else{
             $error = true;
         }
 
         if(isset($atributos['correo'])){
-            setCorreo($atributos['correo']);
+            $this->setCorreo($atributos['correo']);
         }else{
             $error = true;
         }
 
         if(isset($atributos['contrasena'])){
-            setCorreo($atributos['contrasena']);
+            $this->setCorreo($atributos['contrasena']);
         }else{
             $error = true;
         }
 
         if(isset($atributos['tipo'])){
-            setCorreo($atributos['tipo']);
+            $this->setCorreo($atributos['tipo']);
         }else{
             $error = true;
         }
 
         if(isset($atributos['descripcion'])){
-            setCorreo($atributos['descripcion']);
+            $this->setCorreo($atributos['descripcion']);
         }else{
             $error = true;
         }
