@@ -12,6 +12,7 @@ class Usuario {
     private $contrasena;
     private $tipo;
     private $id;
+    private $descripcion;
     //private $conexion;
 
     /**
@@ -76,19 +77,19 @@ class Usuario {
         }
 
         if(isset($atributos['contrasena'])){
-            $this->setCorreo($atributos['contrasena']);
+            $this->setContrasena($atributos['contrasena']);
         }else{
             $error = true;
         }
 
         if(isset($atributos['tipo'])){
-            $this->setCorreo($atributos['tipo']);
+            $this->setTipo($atributos['tipo']);
         }else{
             $error = true;
         }
 
         if(isset($atributos['descripcion'])){
-            $this->setCorreo($atributos['descripcion']);
+            $this->setDescripcion($atributos['descripcion']);
         }else{
             $error = true;
         }
@@ -138,6 +139,10 @@ class Usuario {
     public function getTipo(){
         return $this->tipo;
     }
+
+    public function getDescripcion(){
+        return $this->descripcion;
+    }
     
     public function setCorreo($correo){
         $this->correo = $correo;
@@ -148,11 +153,20 @@ class Usuario {
     public function setContrasena($contrasena){
         $this->contrasena = $contrasena;
     }
+
     public function setTipo($tipo){
         $this->tipo = $tipo;
     }
+    
+    public function setDescripcion($descripcion){
+        $this->descripcion = $descripcion;
+    }
 
-
+    public function toString(){
+        return "Id: " . $this->getId() . "\nCorreo: " . $this->getCorreo() .
+        "\nContrasena: " . $this->getContrasena() . "\nTipo: " . $this->getTipo() . 
+        "\nDescripcion: " . $this->getDescripcion();
+    }
 
     
     }

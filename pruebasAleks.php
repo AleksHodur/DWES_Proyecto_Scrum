@@ -20,6 +20,7 @@ if($usuario->usuarioExiste($correo, $contrasena)){
     echo "<p>El usuario no existe</p>";
 }
 
-/*$campos = $conexion->leerPorId('usuario', $id);
+/*$campos = $conexion->leerPorId('usuario', $id);*/
 
-echo "<pre>" . print_r($campos) . "</pre>";*/
+echo "<pre>" . $usuario->toString() . "</pre>";
+
