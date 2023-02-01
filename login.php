@@ -9,12 +9,9 @@
 <?php
 /**
  * @author Eduardo Carretero
- */
-$posicionActual = $_SERVER['PHP_SELF'];
-/**
  * el formulario con nombre y contraseña
  */
-echo "    <form action=\"$posicionActual\" method=\"POST\">\n";
+echo "    <form action=\"index.php\" method=\"POST\">\n";
 
 /**
  * comprobación de si da error al iniciar sesión

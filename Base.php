@@ -88,7 +88,18 @@
 					//echo "<p>Tabla $nombre creada</p>\n";
 				}
 			}
+		
+		/**
+		 * @param string $datosPerfiles para insertar los datos en la tabla Perfiles
+		 * @param string $datosUsuario  para insertar los datos en la tabla Usuarios
+		 * */	
+		$datosPerfiles = $bd->query("INSERT INTO perfil (nombre, descripcion) VALUES
+		('Alumno', 'Puede subir y escuchar podcasts'),
+		('Profesor', 'Puede validar alumnos y gestionar el contenido');");
 
+	$datosUsuarios = $bd->query("INSERT INTO usuario ( correo, contrasena, tipo, descripcion) VALUES
+		('juan@gmail.com', 'hola', 1, 'Puede subir y escuchar podcasts'),
+		('juan@gmail.es', 'hola', 2, 'Puede validar alumnos y gestionar el contenido');");
       
 
 			$bd = null;

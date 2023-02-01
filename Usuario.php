@@ -49,7 +49,7 @@ class Usuario {
         $arrayExecute = array("correo" => $this->correo, "contrasena" => $this->contrasena);
         $id = $conexion->buscarId('usuario', $condiciones, $arrayExecute);
         echo $id;
-        if($id==-1){
+        if($id == -1) {
             echo "Usuario no existe";
             return false;
         } else {
@@ -73,10 +73,10 @@ class Usuario {
        $conexion = new Conexion();
         $resultado = $conexion->insertar('usuario', 'correo, contrasena, tipo', $correo . ', ' . $contrasena . ', ' . $tipoUsuario);
 
-        if($resultado){
+        if ($resultado) {
             echo "Se ha creado el usuario";
 
-        }else{
+        } else {
             echo "Error al crear el usuario";
         }
     }
