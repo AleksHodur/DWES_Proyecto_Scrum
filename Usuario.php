@@ -41,12 +41,13 @@ class Usuario {
     /**
      *con la función usuario existe llamamos al método estático leer que está en conexión para comprobar que esté dentro de la bdd
      */
-    public function usuarioExiste() {
+    public function usuarioExiste($correo, $contrasena) {
         $conexion = new Conexion();
+        
         $correo = $this->correo;
         echo $correo."ho";
         $condiciones = 'correo = :correo AND contrasena = :contrasena';
-        $arrayExecute = array("correo" => $this->correo, "contrasena" => $this->contrasena);
+        $arrayExecute = array("correo" => $correo, "contrasena" => $contrasena);
         $id = $conexion->buscarId('usuario', $condiciones, $arrayExecute);
         echo $id;
         if($id == -1) {
@@ -57,6 +58,46 @@ class Usuario {
             return true;
         }
     }
+
+    public function asignarAtributos($id){
+        $atributos = $leerPorId('usuario', $id);
+        $error = false;
+
+        if(isset($atributos['id'])){
+            setId($atributos['id']);
+        }else{
+            $error = true;
+        }
+
+        if(isset($atributos['correo'])){
+            setCorreo($atributos['correo']);
+        }else{
+            $error = true;
+        }
+
+        if(isset($atributos['contrasena'])){
+            setCorreo($atributos['contrasena']);
+        }else{
+            $error = true;
+        }
+
+        if(isset($atributos['tipo'])){
+            setCorreo($atributos['tipo']);
+        }else{
+            $error = true;
+        }
+
+        if(isset($atributos['descripcion'])){
+            setCorreo($atributos['descripcion']);
+        }else{
+            $error = true;
+        }
+
+        if($error){
+            echo "Error en la asignación de atributos";
+        }
+    }
+
     /** 
      * @author Rubén Torres
     */
