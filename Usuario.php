@@ -2,7 +2,7 @@
 
 require_once 'Conexion.php';
 /**
- * @author Eduardo Carretero
+ * @author Eduardo Carretero, Rubén Torres, Aleksandra Hodur
  */
 /** 
  * creamos una clase usuario en la que tendremos diferentes métodos que llamaremos desde el programa principal

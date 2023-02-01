@@ -110,12 +110,26 @@
             $resultado->execute(array('id' => $id));
 
             foreach($resultado as $elemento){
-                
 
-                $campos['id'] = $elemento['id'];
+                /*$campos['id'] = $elemento['id'];
                 $campos['correo'] = $elemento['correo'];
                 $campos['contrasena'] = $elemento['contrasena'];
-                $campos['tipo'] = $elemento['tipo'];//cambiar por perfil
+                $campos['tipo'] = $elemento['tipo'];//cambiar por perfil*/
+
+                //de esta manera, por alguna razón, salen los campos duplicados
+                /*$i = 0;
+                foreach($elemento as $atributo){
+                    $campos[] = $atributo;
+                    echo "<p>Activación bucle número: $i</p>";
+                    $i++;
+                }*/
+
+                $nombresCampos = $this->getNombresCampos($tabla);
+
+                for($i = 0; $i < count($nombresCampos); $i++){
+                    $nombre = $nombresCampos[$i];
+                    $campos[$nombre] = $elemento[$nombre];
+                }
             }
 
             return $campos;
@@ -125,6 +139,20 @@
             echo "<p>La fila no existe leerporid</p>";
         }
 
+    }
+
+    public function getNombresCampos($tabla){
+
+        try{
+            $consulta = "DESCRIBE $tabla";
+            $resultado = $this->conectar()->prepare($consulta);
+            $resultado->execute();
+            $nombres = $resultado->fetchAll(PDO::FETCH_COLUMN);
+
+            return $nombres;
+        }catch(Exception $e){
+            echo "<p>Fallo en nombres campos</p>";
+        }
     }
 
     /**
