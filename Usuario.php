@@ -65,7 +65,7 @@ class Usuario {
     }
 
     /** 
-     * @author Rubén Torres
+     * @author Rubén Torres y Aleksandra Hodur
     */
     /**
      * Summary of UsuarioExiste
@@ -93,6 +93,11 @@ class Usuario {
         }
     }
 
+    /**
+     * Función cuyo objetivo es asignarle los atributos al objeto correspondientes con 
+     * la tabla usuario en la BD
+     * @param int $id el id del usuario en la BD
+     */
     public function asignarAtributos($id){
         $conexion = new Conexion();
         $atributos = $conexion->leerPorId('usuario', $id);
