@@ -95,7 +95,7 @@
 
     /**
      * Función cuyo objetivo es leer filas de una tabla de la base de datos
-     * y devolver todos sus campos
+     * y devolver todos sus campos en un array
      * @author Aleksandra
      * @param string $tabla nombre de la tabla
      * @param string $id id de la fila por leer
@@ -110,19 +110,6 @@
             $resultado->execute(array('id' => $id));
 
             foreach($resultado as $elemento){
-
-                /*$campos['id'] = $elemento['id'];
-                $campos['correo'] = $elemento['correo'];
-                $campos['contrasena'] = $elemento['contrasena'];
-                $campos['tipo'] = $elemento['tipo'];//cambiar por perfil*/
-
-                //de esta manera, por alguna razón, salen los campos duplicados
-                /*$i = 0;
-                foreach($elemento as $atributo){
-                    $campos[] = $atributo;
-                    echo "<p>Activación bucle número: $i</p>";
-                    $i++;
-                }*/
 
                 $nombresCampos = $this->getNombresCampos($tabla);
 
@@ -141,6 +128,12 @@
 
     }
 
+    /**
+     * Función cuyo objetivo es devolver un array con los nombres de los
+     * campos de una tabla
+     * @author Aleksandra Hodur
+     * @param String $tabla nombre de la tabla en la BD
+     */
     public function getNombresCampos($tabla){
 
         try{
