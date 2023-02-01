@@ -44,8 +44,6 @@ class Usuario {
     public function usuarioExiste($correo, $contrasena) {
         $conexion = new Conexion();
         
-        $correo = $this->correo;
-        echo $correo."ho";
         $condiciones = 'correo = :correo AND contrasena = :contrasena';
         $arrayExecute = array("correo" => $correo, "contrasena" => $contrasena);
         $id = $conexion->buscarId('usuario', $condiciones, $arrayExecute);
@@ -55,13 +53,14 @@ class Usuario {
             return false;
         } else {
             echo "Se ha encontrado $id Id";
-            asignarAtributos($id);
+            $this->asignarAtributos($id);
             return true;
         }
     }
 
     public function asignarAtributos($id){
-        $atributos = $leerPorId('usuario', $id);
+        $conexion = new Conexion();
+        $atributos = $conexion->leerPorId('usuario', $id);
         $error = false;
 
         if(isset($atributos['id'])){
@@ -157,13 +156,5 @@ class Usuario {
 
     
     }
-    $correo = "ruben@gmail.com";
-    $contrasena = "hola";
-    $tipo ="1";
-   
-    $usuario = new Usuario();
-    $usuario->setCorreo($correo);
-    $usuario->setContrasena($contrasena);
-    $usuario->setUsuario($correo, $contrasena, $tipo);
     
 ?>
