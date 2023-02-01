@@ -24,12 +24,46 @@ class Usuario {
      * @param string $id
      * @return void
      */
-   /* public function __constructor($correo, $contrasena){
-        echo $correo;
-        $this->setCorreo($correo);
-        $this->setContrasena($contrasena);
-        //$this->conexion = new Conexion('mysql:host=db', 'alumnado', 'alumnado');
-    }*/
+
+     /**
+     * @author Rubén Torres
+     * getters y setters correspondientes
+     */
+    public function getcorreo() {
+        return $this->correo;
+    }
+    public function getId() {
+        return $this->id;
+    }
+    public function getContrasena(){
+        return $this->contrasena;
+    }
+    public function getTipo(){
+        return $this->tipo;
+    }
+
+    public function getDescripcion(){
+        return $this->descripcion;
+    }
+    
+    public function setCorreo($correo){
+        $this->correo = $correo;
+    }
+    public function setId($id){
+        $this->id = $id;
+    }
+    public function setContrasena($contrasena){
+        $this->contrasena = $contrasena;
+    }
+
+    public function setTipo($tipo){
+        $this->tipo = $tipo;
+    }
+    
+    public function setDescripcion($descripcion){
+        $this->descripcion = $descripcion;
+    }
+
     /** 
      * @author Rubén Torres
     */
@@ -123,44 +157,6 @@ class Usuario {
         }
     }
 
-    /**
-     * @author Rubén Torres
-     * getters y setters correspondientes
-     */
-    public function getcorreo() {
-        return $this->correo;
-    }
-    public function getId() {
-        return $this->id;
-    }
-    public function getContrasena(){
-        return $this->contrasena;
-    }
-    public function getTipo(){
-        return $this->tipo;
-    }
-
-    public function getDescripcion(){
-        return $this->descripcion;
-    }
-    
-    public function setCorreo($correo){
-        $this->correo = $correo;
-    }
-    public function setId($id){
-        $this->id = $id;
-    }
-    public function setContrasena($contrasena){
-        $this->contrasena = $contrasena;
-    }
-
-    public function setTipo($tipo){
-        $this->tipo = $tipo;
-    }
-    
-    public function setDescripcion($descripcion){
-        $this->descripcion = $descripcion;
-    }
 
     public function toString(){
         return "Id: " . $this->getId() . "\nCorreo: " . $this->getCorreo() .
