@@ -95,7 +95,7 @@
 
     /**
      * Función cuyo objetivo es leer filas de una tabla de la base de datos
-     * y devolver todos sus campos
+     * y devolver todos sus campos en un array
      * @author Aleksandra
      * @param string $tabla nombre de la tabla
      * @param string $id id de la fila por leer
@@ -110,12 +110,13 @@
             $resultado->execute(array('id' => $id));
 
             foreach($resultado as $elemento){
-                
 
-                $campos['id'] = $elemento['id'];
-                $campos['correo'] = $elemento['correo'];
-                $campos['contrasena'] = $elemento['contrasena'];
-                $campos['tipo'] = $elemento['tipo'];//cambiar por perfil
+                $nombresCampos = $this->getNombresCampos($tabla);
+
+                for($i = 0; $i < count($nombresCampos); $i++){
+                    $nombre = $nombresCampos[$i];
+                    $campos[$nombre] = $elemento[$nombre];
+                }
             }
 
             return $campos;
@@ -125,6 +126,26 @@
             echo "<p>La fila no existe leerporid</p>";
         }
 
+    }
+
+    /**
+     * Función cuyo objetivo es devolver un array con los nombres de los
+     * campos de una tabla
+     * @author Aleksandra Hodur
+     * @param String $tabla nombre de la tabla en la BD
+     */
+    public function getNombresCampos($tabla){
+
+        try{
+            $consulta = "DESCRIBE $tabla";
+            $resultado = $this->conectar()->prepare($consulta);
+            $resultado->execute();
+            $nombres = $resultado->fetchAll(PDO::FETCH_COLUMN);
+
+            return $nombres;
+        }catch(Exception $e){
+            echo "<p>Fallo en nombres campos</p>";
+        }
     }
 
     /**

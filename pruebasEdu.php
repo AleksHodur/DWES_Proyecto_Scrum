@@ -1,9 +1,11 @@
 <?php
 session_start();
 
+require_once 'Conexion.php';
 require_once 'Usuario.php';
 
-//$usuario = new Usuario();
+$conexion = new Conexion();
+$usuario = new Usuario();
 
 if ((isset($_SESSION['token'])) && isset($_POST['token'])) {
     if ($_SESSION['token'] == $_POST['token']) {
@@ -15,19 +17,21 @@ if ((isset($_SESSION['token'])) && isset($_POST['token'])) {
             } elseif ($usuario->getTipo() == 2) {
                 require_once 'alumno.php';
             }
-        }
-    } elseif ((isset($_POST['usuario'])) && (isset($_POST['contrasena']))) {
-        $usuarioFormulario = trim(strip_tags($_POST['usuario']));
+        } elseif ((isset($_POST['usuario'])) && (isset($_POST['contrasena']))) {
+            $usuarioFormulario = trim(strip_tags($_POST['usuario']));
             $contrasenaFormulario = trim(strip_tags($_POST['contrasena']));
-            $patron = '/^[a-z0-9]+@[a-z0-9]+\.[a-z]{2,3}/';
+            $patron = '/^[a-z0-9]+@[a-z0-9]+\.[a-z]{2,3}$/';
 
             if (preg_match($patron, $_POST['usuario'])) {
                 echo "<p>Usuario: " . $usuarioFormulario . "</p>";
                 echo "<p>Contraseña: $contrasenaFormulario</p>";
+
+                
+
             } else {
-                require_once 'login.php';
-                echo "falló el patrón";
+                echo " falló el patrón";
             }
+        } 
     }
     
 } else {
