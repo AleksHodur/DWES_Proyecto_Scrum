@@ -12,11 +12,22 @@ if ((isset($_SESSION['token'])) && isset($_POST['token'])) {
         echo "token correcto";
         if (isset($_SESSION['usuario'])) {
             echo "Sesión iniciada";
-            if ($usuario->getTipo() == 1) {
-                require_once 'profesor.php';
-            } elseif ($usuario->getTipo() == 2) {
-                require_once 'alumno.php';
+            $usuario1 = unserialize($_SESSION['usuario']);
+            echo "<pre>" .$usuario1->toString(). "</pre>";
+            $tipo = "";
+            switch ($usuario1->getTipo()) {
+               case 1 : 
+                        $tipo = "profesor";
+                        break;
+                case 2 :
+                        $tipo = "alumno";
+                        break;
+                default :
+                        $tipo = "no se detecta tipo";
+                        break;
             }
+            echo "bienvenido $tipo";
+        
         } elseif ((isset($_POST['usuario'])) && (isset($_POST['contrasena']))) {
             $usuarioFormulario = trim(strip_tags($_POST['usuario']));
             $contrasenaFormulario = trim(strip_tags($_POST['contrasena']));
@@ -26,7 +37,13 @@ if ((isset($_SESSION['token'])) && isset($_POST['token'])) {
                 echo "<p>Usuario: " . $usuarioFormulario . "</p>";
                 echo "<p>Contraseña: $contrasenaFormulario</p>";
 
-                
+                if ($usuario->usuarioExiste($usuarioFormulario, $contrasenaFormulario)) {
+                    echo " el usuario existe";
+                    $_SESSION['usuario'] = $usuario;
+                } else {
+                    echo " el usuario no existe";
+                    echo "<a>Crear usuario</a>";
+                }
 
             } else {
                 echo " falló el patrón";
