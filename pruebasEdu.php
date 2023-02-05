@@ -59,6 +59,8 @@ if ((isset($_SESSION['token'])) && isset($_POST['token'])) {
   <head>
     <meta charset="utf-8"/>
     <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="CSS/reset.css">
+    <link rel="stylesheet" type="text/css" href="CSS/estilos.css">
   </head>
   <body>
     <h1>Inicio de Sesión</h1>
