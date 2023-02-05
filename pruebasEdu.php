@@ -71,9 +71,9 @@ if ((isset($_SESSION['token'])) && isset($_POST['token'])) {
     $posicionActual = $_SERVER['PHP_SELF'];
 
     echo "    <form action=\"$posicionActual\" method=\"POST\">\n";
-    echo "       <p>Usuario: <input type=\"text\" name=\"usuario\"></p>\n";
-    echo "       <p>Contraseña: <input type=\"password\" name=\"contrasena\"></p>\n";
+    echo "       <div class=\"input\"> <input type=\"text\" placeholder=\"Usuario\" name=\"usuario\"></div>\n";
+    echo "       <div class=\"input\"> <input type=\"password\" placeholder=\"Contraseña\" name=\"contrasena\"></div>\n";
     echo "       <input type=\"hidden\" name=\"token\" value=\"$token\">\n";
-    echo "       <button type=\"submit\" value=\"login\">Identificarse</button>\n";
+    echo "       <button class=\"button\" type=\"submit\" value=\"login\">Identificarse</button>\n";
     echo "    </form>\n";
 }
