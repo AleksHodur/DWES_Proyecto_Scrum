@@ -44,10 +44,10 @@
             $resultado = $this->conectar()->prepare($consulta);
             $resultado->execute(array("valoresCampos" => $valoresCampos));
 
-            return true;
+            echo "<p>Inserción exitosa</p>";
 
         }catch(Exception $e){
-            return false;
+            echo "<p>Falló la inserción</p>";
         }
     }
 

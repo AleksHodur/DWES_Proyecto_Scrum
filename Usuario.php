@@ -8,10 +8,10 @@ require_once 'Conexion.php';
  * creamos una clase usuario en la que tendremos diferentes métodos que llamaremos desde el programa principal
 */
 class Usuario {
+    private $id;
     private $correo;
     private $contrasena;
     private $tipo;
-    private $id;
     private $descripcion;
     //private $conexion;
 
@@ -64,6 +64,22 @@ class Usuario {
         $this->descripcion = $descripcion;
     }
 
+    public function insertar($id, $correo, $contrasena, $tipo, $descripcion){
+        $conexion = new Conexion();
+        $nombresCampos = 'id, correo, contrasena, tipo, descripcion';
+        $valoresCampos = "$id, $correo, $contrasena, $tipo, $descripcion";
+
+        $conexion->insertar('usuario', $nombresCampos, $valoresCampos);
+    }
+
+    public function eliminar(){
+
+    }
+
+    public function actualizar(){
+
+    }
+
     /** 
      * @author Rubén Torres y Aleksandra Hodur
     */
@@ -96,6 +112,7 @@ class Usuario {
     /**
      * Función cuyo objetivo es asignarle los atributos al objeto correspondientes con 
      * la tabla usuario en la BD
+     * @author Aleksandra Hodur
      * @param int $id el id del usuario en la BD
      */
     public function asignarAtributos($id){
