@@ -12,8 +12,8 @@ if ((isset($_SESSION['token'])) && isset($_POST['token'])) {
         echo "token correcto";
         if (isset($_SESSION['usuario'])) {
             echo "Sesión iniciada";
-            $usuario1 = unserialize($_SESSION['usuario']);
-            echo "<pre>" .$usuario1->toString(). "</pre>";
+            //$usuario1 = unserialize($_SESSION['usuario']);
+            //echo "<pre>" .$usuario1->toString(). "</pre>";
             $tipo = "";
             switch ($usuario1->getTipo()) {
                case 1 : 
@@ -32,7 +32,7 @@ if ((isset($_SESSION['token'])) && isset($_POST['token'])) {
             $usuarioFormulario = trim(strip_tags($_POST['usuario']));
             $contrasenaFormulario = trim(strip_tags($_POST['contrasena']));
             $patron = '/^[a-z0-9]+@[a-z0-9]+\.[a-z]{2,3}$/';
-
+        
             if (preg_match($patron, $_POST['usuario'])) {
                 echo "<p>Usuario: " . $usuarioFormulario . "</p>";
                 echo "<p>Contraseña: $contrasenaFormulario</p>";
@@ -72,7 +72,7 @@ if ((isset($_SESSION['token'])) && isset($_POST['token'])) {
 
     echo "    <form action=\"$posicionActual\" method=\"POST\">\n";
     echo "       <div class=\"input\"> <input type=\"text\" placeholder=\"Usuario\" name=\"usuario\"></div>\n";
-    echo "       <div class=\"input\"> <input type=\"password\" placeholder=\"Contraseña\" name=\"contrasena\"></div>\n";
+    echo "       <div class=\"input\"> <input type=\"password\" placeholder=\"Contraseña\" name=\"contrasena\" maxlength=\"16\"></div>\n";
     echo "       <input type=\"hidden\" name=\"token\" value=\"$token\">\n";
     echo "       <button class=\"button\" type=\"submit\" value=\"login\">Identificarse</button>\n";
     echo "    </form>\n";
