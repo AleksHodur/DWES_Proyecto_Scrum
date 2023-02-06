@@ -24,3 +24,17 @@ if($usuario->usuarioExiste($correo, $contrasena)){
 
 echo "<pre>" . $usuario->toString() . "</pre>";
 
+echo "<hr>
+<p>Prueba de inserción de nuevo usuario</p>";
+
+$nuevoUsuario = new Usuario();
+$correo = 'ala@ala.ala';
+$contrasena = 'ala';
+
+if(!$nuevoUsuario->usuarioExiste($correo, $contrasena)){
+    $nuevoUsuario->insertar($correo, $contrasena, '1', 'Descripcion corta de ala');
+}else{
+    echo "<p>El usuario ala ya existe</p>";
+}
+
+echo "<pre>" . $nuevoUsuario->toString() . "</pre>";

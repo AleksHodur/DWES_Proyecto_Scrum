@@ -64,10 +64,10 @@ class Usuario {
         $this->descripcion = $descripcion;
     }
 
-    public function insertar($id, $correo, $contrasena, $tipo, $descripcion){
+    public function insertar($correo, $contrasena, $tipo, $descripcion){
         $conexion = new Conexion();
-        $nombresCampos = 'id, correo, contrasena, tipo, descripcion';
-        $valoresCampos = "$id, $correo, $contrasena, $tipo, $descripcion";
+        $nombresCampos = 'correo, contrasena, tipo, descripcion';
+        $valoresCampos = "$correo, $contrasena, $tipo, $descripcion";
 
         $conexion->insertar('usuario', $nombresCampos, $valoresCampos);
     }
