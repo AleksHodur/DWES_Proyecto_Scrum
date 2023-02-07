@@ -8,10 +8,10 @@ require_once 'Conexion.php';
  * creamos una clase usuario en la que tendremos diferentes métodos que llamaremos desde el programa principal
 */
 class Usuario {
+    private $id;
     private $correo;
     private $contrasena;
     private $tipo;
-    private $id;
     private $descripcion;
     //private $conexion;
 
@@ -64,13 +64,56 @@ class Usuario {
         $this->descripcion = $descripcion;
     }
 
+    public function insertar($correo, $contrasena, $tipo, $descripcion){
+        $conexion = new Conexion();
+        $nombresCampos = 'correo, contrasena, tipo, descripcion';
+        $valoresCampos = ":correo, :contrasena, :tipo, :descripcion";
+        $arrayExecute = array('correo' => $correo, 'contrasena' => $contrasena, 'tipo' => $tipo, 'descripcion' => $descripcion);
+        
+        $conexion->insertar('usuario', $nombresCampos, $valoresCampos, $arrayExecute);
+        $id = $conexion->buscarId('usuario', 'correo = :correo', array('correo' => $correo));
+        $this->asignarAtributos($id);
+    }
+
+    public function eliminar(){
+        $conexion = new Conexion();
+        $conexion->eliminar('usuario', $this->getId());
+    }
+
+    public function actualizar($nombreCampo, $valorCampo){
+        $conexion = new Conexion();
+        $conexion->actualizar('usuario', $this->getId(), $nombreCampo, $valorCampo);
+
+        switch($nombreCampo){
+            case 'id':
+                $this->setId($valorCampo);
+                break;
+
+            case 'correo':
+                $this->setId($valorCampo);
+                break;
+
+            case 'contrasena':
+                $this->setId($valorCampo);
+                break;
+
+            case 'tipo':
+                $this->setId($valorCampo);
+                break;
+
+            case 'descripcion':
+                $this->setId($valorCampo);
+                break;
+        }
+    }
+
     /** 
      * @author Rubén Torres y Aleksandra Hodur
     */
     /**
      * Summary of UsuarioExiste
      * @param string $correo
-     * @param string $contrasena
+     * @param string/bool $contrasena si es un booleano false, se realiza la búsqueda sin contrasena
      * @return bool
      */
     /**
@@ -78,16 +121,22 @@ class Usuario {
      */
     public function usuarioExiste($correo, $contrasena) {
         $conexion = new Conexion();
-        
-        $condiciones = 'correo = :correo AND contrasena = :contrasena';
-        $arrayExecute = array("correo" => $correo, "contrasena" => $contrasena);
+
+        if($contrasena){
+            $condiciones = 'correo = :correo AND contrasena = :contrasena';
+            $arrayExecute = array("correo" => $correo, "contrasena" => $contrasena);
+        }else{
+            $condiciones = 'correo = :correo';
+            $arrayExecute = array("correo" => $correo);
+        }
+
         $id = $conexion->buscarId('usuario', $condiciones, $arrayExecute);
-        echo $id;
-        if($id == -1) {
-            echo "Usuario no existe";
+
+        if($id < 0) {
+            //echo "Usuario no existe";
             return false;
         } else {
-            echo "Se ha encontrado $id Id";
+            //echo "Se ha encontrado $id Id";
             $this->asignarAtributos($id);
             return true;
         }
@@ -96,6 +145,7 @@ class Usuario {
     /**
      * Función cuyo objetivo es asignarle los atributos al objeto correspondientes con 
      * la tabla usuario en la BD
+     * @author Aleksandra Hodur
      * @param int $id el id del usuario en la BD
      */
     public function asignarAtributos($id){
