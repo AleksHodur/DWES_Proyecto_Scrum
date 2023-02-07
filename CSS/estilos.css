@@ -1,0 +1,79 @@
+@font-face {
+    font-family: Roboto;
+    src: url(../fonts/Roboto/Roboto-Medium.ttf);
+}
+
+html, body {
+    width: 100vw;
+    height: 100vh;
+}
+body{
+    background-image: url(../img/Boxer\ of\ Quirinal.jpg);
+    
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+h1 {
+    font-weight: bold;
+    width: 50vw;
+    height: 10vh;
+    font-size: 6vh;
+    display: inline-block;
+    position: absolute;
+    top: 25vh;
+    left: 15vw;
+    text-align: center;
+    color: rgb(191, 185, 185);
+}
+
+form {
+    background-color: rgb(191, 185, 185);
+    width: 30vw;
+    height: 43vh;
+    position: absolute;
+    top: 33vh;
+    left: 25vw;
+    padding: 50px;
+}
+
+p {
+    text-align: center;
+    margin-top: 5vh;
+}
+
+
+.button {
+    line-height: 40px;
+    display: inline-block;
+    padding: 0 25px;
+    cursor: pointer;
+    color: black;
+    font-family: roboto,Arial, Helvetica, sans-serif;
+    transition:all 1s;
+    font-size: 14px;
+    font-weight: 700;
+    background-color: #666;
+    border-radius: 3px;
+}
+
+.button:hover {
+    background-color: rgb(144, 142, 142);
+    transition: all 1s;
+}
+
+.input {
+    border-bottom: 1px solid black;
+    margin-bottom: 5vh;
+}
+
+input{
+    width: 100%;
+    border: none;
+    padding: 9px 0;
+    color: #666;
+    font-size: 16px;
+    font-weight: 500;
+    background-color: rgb(191, 185, 185) ;
+    outline: none;
+}
