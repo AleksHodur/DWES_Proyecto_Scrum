@@ -67,9 +67,9 @@ class Usuario {
     public function insertar($correo, $contrasena, $tipo, $descripcion){
         $conexion = new Conexion();
         $nombresCampos = 'correo, contrasena, tipo, descripcion';
-        $valoresCampos = "$correo, $contrasena, $tipo, $descripcion";
+        //$valoresCampos = "$correo, $contrasena, $tipo, $descripcion";
 
-        $conexion->insertar('usuario', $nombresCampos, $valoresCampos);
+        $conexion->insertar('usuario', $nombresCampos, $correo, $contrasena, $tipo, $descripcion);
     }
 
     public function eliminar(){
