@@ -76,7 +76,8 @@ class Usuario {
     }
 
     public function eliminar(){
-
+        $conexion = new Conexion();
+        $conexion->eliminar('usuario', $this->getId());
     }
 
     public function actualizar(){
@@ -101,8 +102,8 @@ class Usuario {
         $condiciones = 'correo = :correo AND contrasena = :contrasena';
         $arrayExecute = array("correo" => $correo, "contrasena" => $contrasena);
         $id = $conexion->buscarId('usuario', $condiciones, $arrayExecute);
-        echo $id;
-        if($id == -1) {
+        
+        if($id < 0) {
             //echo "Usuario no existe";
             return false;
         } else {

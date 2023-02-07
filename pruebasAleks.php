@@ -38,3 +38,8 @@ if(!$nuevoUsuario->usuarioExiste($correo, $contrasena)){
 }
 
 echo "<pre>" . $nuevoUsuario->toString() . "</pre>";
+
+echo "<hr>
+<p>Eliminación del usuario ala</p>";
+
+$nuevoUsuario->eliminar(); 

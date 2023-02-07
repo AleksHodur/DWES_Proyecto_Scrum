@@ -68,10 +68,10 @@
             $resultado = $this->conectar()->prepare($consulta);
             $resultado->execute(array('id' => $id));
 
-            return "Borrado realizado con éxito";
+            return true;
 
         }catch(Exception $e){
-            return "Error al borrar";
+            return false;
         }
     }
 
