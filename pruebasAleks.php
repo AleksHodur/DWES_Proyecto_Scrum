@@ -39,7 +39,12 @@ if(!$nuevoUsuario->usuarioExiste($correo, $contrasena)){
 
 echo "<pre>" . $nuevoUsuario->toString() . "</pre>";
 
-echo "<hr>
+/*echo "<hr>
 <p>Eliminación del usuario ala</p>";
 
-$nuevoUsuario->eliminar(); 
+$nuevoUsuario->eliminar(); */
+
+echo "<hr>
+<p>Actualización del usuario ala: cambio contrasena por hola</p>";
+
+$nuevoUsuario->actualizar('contrasena', 'hola');

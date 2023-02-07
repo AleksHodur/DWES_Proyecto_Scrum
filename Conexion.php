@@ -86,14 +86,14 @@
     public function actualizar($tabla, $id, $nombreCampo, $valorCampo) {
 
         try{
-            $consulta = "UPDATE $tabla SET  $nombreCampo = ':valorCampo' WHERE ID = :id;";
+            $consulta = "UPDATE $tabla SET  $nombreCampo = :valorCampo WHERE ID = :id;";
             $resultado = $this->conectar()->prepare($consulta);
             $resultado->execute(array('valorCampo' => $valorCampo, 'id' => $id));
 
-            return "Actualización realizada con éxito";
+            echo "<p>Actualización realizada con éxito</p>";
 
         }catch(Exception $e){
-            return "Error de actualización";
+            echo "<p>Error de actualización</p>";
         }
     }
 

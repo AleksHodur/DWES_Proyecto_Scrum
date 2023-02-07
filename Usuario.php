@@ -80,8 +80,31 @@ class Usuario {
         $conexion->eliminar('usuario', $this->getId());
     }
 
-    public function actualizar(){
+    public function actualizar($nombreCampo, $valorCampo){
+        $conexion = new Conexion();
+        $conexion->actualizar('usuario', $this->getId(), $nombreCampo, $valorCampo);
 
+        switch($nombreCampo){
+            case 'id':
+                $this->setId($valorCampo);
+                break;
+
+            case 'correo':
+                $this->setId($valorCampo);
+                break;
+
+            case 'contrasena':
+                    $this->setId($valorCampo);
+                    break;
+
+            case 'tipo':
+                $this->setId($valorCampo);
+                break;
+
+            case 'descripcion':
+                $this->setId($valorCampo);
+                break;
+        }
     }
 
     /** 
@@ -102,7 +125,7 @@ class Usuario {
         $condiciones = 'correo = :correo AND contrasena = :contrasena';
         $arrayExecute = array("correo" => $correo, "contrasena" => $contrasena);
         $id = $conexion->buscarId('usuario', $condiciones, $arrayExecute);
-        
+
         if($id < 0) {
             //echo "Usuario no existe";
             return false;
