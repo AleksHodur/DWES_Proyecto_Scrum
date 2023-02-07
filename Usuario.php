@@ -70,6 +70,8 @@ class Usuario {
         //$valoresCampos = "$correo, $contrasena, $tipo, $descripcion";
 
         $conexion->insertar('usuario', $nombresCampos, $correo, $contrasena, $tipo, $descripcion);
+        $id = $this->buscarId('usuario', 'correo = :correo', array('correo' => $correo));
+        $this->asignarAtributos($id);
     }
 
     public function eliminar(){

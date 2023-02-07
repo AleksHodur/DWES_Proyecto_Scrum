@@ -43,7 +43,7 @@
         //$correo, $contrasena, $tipo, $descripcion
 
         try{
-            $consulta = "INSERT INTO $tabla ($nombresCampos) VALUES (':correo', ':contrasena', ':tipo', ':descripcion');";
+            $consulta = "INSERT INTO $tabla ($nombresCampos) VALUES (:correo, :contrasena, :tipo, :descripcion);";
             echo "<p>Insertar 1</p>";
             $resultado = $this->conectar()->prepare($consulta);
             echo "<p>Insertar 2</p>";
