@@ -172,7 +172,6 @@
             
             foreach($resultado as $elemento){
                 $id = $elemento['id'];
-                echo $id."id";
             }
 
         }catch(Exception $e){

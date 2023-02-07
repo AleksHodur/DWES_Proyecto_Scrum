@@ -94,8 +94,8 @@ class Usuario {
                 break;
 
             case 'contrasena':
-                    $this->setId($valorCampo);
-                    break;
+                $this->setId($valorCampo);
+                break;
 
             case 'tipo':
                 $this->setId($valorCampo);
@@ -113,7 +113,7 @@ class Usuario {
     /**
      * Summary of UsuarioExiste
      * @param string $correo
-     * @param string $contrasena
+     * @param string/bool $contrasena si es un booleano false, se realiza la búsqueda sin contrasena
      * @return bool
      */
     /**
@@ -121,9 +121,15 @@ class Usuario {
      */
     public function usuarioExiste($correo, $contrasena) {
         $conexion = new Conexion();
-        
-        $condiciones = 'correo = :correo AND contrasena = :contrasena';
-        $arrayExecute = array("correo" => $correo, "contrasena" => $contrasena);
+
+        if($contrasena){
+            $condiciones = 'correo = :correo AND contrasena = :contrasena';
+            $arrayExecute = array("correo" => $correo, "contrasena" => $contrasena);
+        }else{
+            $condiciones = 'correo = :correo';
+            $arrayExecute = array("correo" => $correo);
+        }
+
         $id = $conexion->buscarId('usuario', $condiciones, $arrayExecute);
 
         if($id < 0) {

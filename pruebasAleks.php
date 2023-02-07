@@ -29,9 +29,9 @@ echo "<hr>
 
 $nuevoUsuario = new Usuario();
 $correo = 'ala@ala.ala';
-$contrasena = 'ala';
+$contrasena = 'hola';
 
-if(!$nuevoUsuario->usuarioExiste($correo, $contrasena)){
+if(!$nuevoUsuario->usuarioExiste($correo, false)){
     $nuevoUsuario->insertar($correo, $contrasena, '1', 'Descripcion corta de ala');
 }else{
     echo "<p>El usuario ala ya existe</p>";
