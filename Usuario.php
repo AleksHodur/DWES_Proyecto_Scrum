@@ -67,10 +67,11 @@ class Usuario {
     public function insertar($correo, $contrasena, $tipo, $descripcion){
         $conexion = new Conexion();
         $nombresCampos = 'correo, contrasena, tipo, descripcion';
-        //$valoresCampos = "$correo, $contrasena, $tipo, $descripcion";
-
-        $conexion->insertar('usuario', $nombresCampos, $correo, $contrasena, $tipo, $descripcion);
-        $id = $this->buscarId('usuario', 'correo = :correo', array('correo' => $correo));
+        $valoresCampos = ":correo, :contrasena, :tipo, :descripcion";
+        $arrayExecute = array('correo' => $correo, 'contrasena' => $contrasena, 'tipo' => $tipo, 'descripcion' => $descripcion);
+        
+        $conexion->insertar('usuario', $nombresCampos, $valoresCampos, $arrayExecute);
+        $id = $conexion->buscarId('usuario', 'correo = :correo', array('correo' => $correo));
         $this->asignarAtributos($id);
     }
 
@@ -102,10 +103,10 @@ class Usuario {
         $id = $conexion->buscarId('usuario', $condiciones, $arrayExecute);
         echo $id;
         if($id == -1) {
-            echo "Usuario no existe";
+            //echo "Usuario no existe";
             return false;
         } else {
-            echo "Se ha encontrado $id Id";
+            //echo "Se ha encontrado $id Id";
             $this->asignarAtributos($id);
             return true;
         }

@@ -38,23 +38,20 @@
      * @param string $nombresCampos los nombres de los campos a insertar
      * @param string $valoresCampos los valores de los campos a insertar
      */
-    public function insertar($tabla, $nombresCampos, $correo, $contrasena, $tipo, $descripcion) {
+    public function insertar($tabla, $nombresCampos, $valoresCampos, $arrayExecute) {
 
         //$correo, $contrasena, $tipo, $descripcion
 
         try{
-            $consulta = "INSERT INTO $tabla ($nombresCampos) VALUES (:correo, :contrasena, :tipo, :descripcion);";
-            echo "<p>Insertar 1</p>";
+            $consulta = "INSERT INTO $tabla ($nombresCampos) VALUES ($valoresCampos);";
             $resultado = $this->conectar()->prepare($consulta);
-            echo "<p>Insertar 2</p>";
             //$resultado->execute();
-            $resultado->execute(array('correo' => $correo, 'contrasena' => $contrasena, 'tipo' => $tipo, 'descripcion' => $descripcion));
-            echo "<p>Insertar 3</p>";
+            $resultado->execute($arrayExecute);
             
-            echo "<p>Inserción exitosa</p>";
+            return true;
 
         }catch(Exception $e){
-            echo "<p>Falló la inserción</p>";
+            return false;
         }
     }
 
