@@ -11,22 +11,7 @@ if ((isset($_SESSION['token'])) && isset($_POST['token'])) {
     if ($_SESSION['token'] == $_POST['token']) {
         echo "token correcto";
         if (isset($_SESSION['usuario'])) {
-            echo "Sesión iniciada";
-            //$usuario1 = unserialize($_SESSION['usuario']);
-            //echo "<pre>" .$usuario1->toString(). "</pre>";
-            $tipo = "";
-            switch ($usuario1->getTipo()) {
-               case 1 : 
-                        $tipo = "profesor";
-                        break;
-                case 2 :
-                        $tipo = "alumno";
-                        break;
-                default :
-                        $tipo = "no se detecta tipo";
-                        break;
-            }
-            echo "bienvenido $tipo";
+           require_once 'vistaUsuario.php';
         
         } elseif ((isset($_POST['usuario'])) && (isset($_POST['contrasena']))) {
             $usuarioFormulario = trim(strip_tags($_POST['usuario']));
