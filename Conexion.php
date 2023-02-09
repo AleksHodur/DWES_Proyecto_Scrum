@@ -165,27 +165,7 @@
             echo "<p>Fallo en nombres campos</p>";
         }
     }
-
-    /**
-     * Función cuyo objetivo es devolver un array con los nombres de los
-     * campos de una tabla
-     * @author Aleksandra Hodur
-     * @param String $tabla nombre de la tabla en la BD
-     */
-    public function getNombresCampos($tabla){
-
-        try{
-            $consulta = "DESCRIBE $tabla";
-            $resultado = $this->conectar()->prepare($consulta);
-            $resultado->execute();
-            $nombres = $resultado->fetchAll(PDO::FETCH_COLUMN);
-
-            return $nombres;
-        }catch(Exception $e){
-            echo "<p>Fallo en nombres campos</p>";
-        }
-    }
-
+    
     /**
      * Función cuyo objetivo es buscar el id de una fila que coincida con la condición
      * Si no existe dicha fila, devuelve -1. Si existe, devuelve el id
