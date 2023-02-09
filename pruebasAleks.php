@@ -6,6 +6,8 @@ require_once "Usuario.php";
 $correo = 'juan@gmail.com';
 $contrasena = 'hola';
 
+$usuario = new Usuario();
+
 $conexion = new Conexion();
 //$conexion->conectar();
 //$conexion->iniciarPDO();
@@ -49,7 +51,5 @@ echo "<pre>" . $nuevoUsuario->toString() . "</pre>";
 
 $nuevoUsuario->eliminar(); */
 
-echo "<hr>
-<p>Actualización del usuario ala: cambio contrasena por hola</p>";
 
 $nuevoUsuario->actualizar('contrasena', 'hola');

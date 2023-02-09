@@ -42,11 +42,7 @@
 
         try{
             $consulta = "INSERT INTO $tabla ($nombresCampos) VALUES ($valoresCampos);";
-            $consulta = "INSERT INTO $tabla ($nombresCampos) VALUES ($valoresCampos);";
             $resultado = $this->conectar()->prepare($consulta);
-            //$resultado->execute();
-            $resultado->execute($arrayExecute);
-            
             //$resultado->execute();
             $resultado->execute($arrayExecute);
             
@@ -71,10 +67,8 @@
             $resultado->execute(array('id' => $id));
 
             return true;
-            return true;
 
         }catch(Exception $e){
-            return false;
             return false;
         }
     }
@@ -91,15 +85,12 @@
 
         try{
             $consulta = "UPDATE $tabla SET  $nombreCampo = :valorCampo WHERE ID = :id;";
-            $consulta = "UPDATE $tabla SET  $nombreCampo = :valorCampo WHERE ID = :id;";
             $resultado = $this->conectar()->prepare($consulta);
             $resultado->execute(array('valorCampo' => $valorCampo, 'id' => $id));
 
             echo "<p>Actualización realizada con éxito</p>";
-            echo "<p>Actualización realizada con éxito</p>";
 
         }catch(Exception $e){
-            echo "<p>Error de actualización</p>";
             echo "<p>Error de actualización</p>";
         }
     }
@@ -125,12 +116,6 @@
 
                 $nombresCampos = $this->getNombresCampos($tabla);
 
-                $nombresCampos = $this->getNombresCampos($tabla);
-
-                for($i = 0; $i < count($nombresCampos); $i++){
-                    $nombre = $nombresCampos[$i];
-                    $campos[$nombre] = $elemento[$nombre];
-                }
                 for($i = 0; $i < count($nombresCampos); $i++){
                     $nombre = $nombresCampos[$i];
                     $campos[$nombre] = $elemento[$nombre];
@@ -165,7 +150,7 @@
             echo "<p>Fallo en nombres campos</p>";
         }
     }
-    
+
     /**
      * Función cuyo objetivo es buscar el id de una fila que coincida con la condición
      * Si no existe dicha fila, devuelve -1. Si existe, devuelve el id
