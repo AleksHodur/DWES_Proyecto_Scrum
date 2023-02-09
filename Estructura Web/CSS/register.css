@@ -1,21 +1,24 @@
-@font-face {
-    font-family: Roboto;
-    src: url(../fonts/Roboto/Roboto-Medium.ttf);
-}
+/*
+    Colores usados en la página
+    #bfb9b9 gris claro
+    #908e8e gris menos claro
+    #666 gris oscuro
+    #000 negro
+*/
 
 html, body {
     width: 100vw;
     height: 100vh;
 }
 body{
-    background-image: url(../img/Boxer\ of\ Quirinal.jpg);
+    background-image: url(../../img/griego.jpg);
     
     background-size: 100%;
     background-repeat: no-repeat;
 }
 
 .logo {
-    background-image: url(../img/logoIBQ.jpg);
+    background-image: url(../../img/logoIBQ.jpg);
     position: absolute;
     bottom: 5vh;
     left: 2vw;
@@ -31,19 +34,19 @@ h1 {
     font-size: 6vh;
     display: inline-block;
     position: absolute;
-    top: 25vh;
-    left: 15vw;
+    top: 10vh;
+    right: 0;
     text-align: center;
-    color: rgb(191, 185, 185);
+    color: #bfb9b9;
 }
 
 form {
-    background-color: rgb(191, 185, 185);
+    background-color: #bfb9b9;
     width: 30vw;
-    height: 43vh;
+    height: 73vh;
     position: absolute;
-    top: 33vh;
-    left: 25vw;
+    top: 20vh;
+    right: 10vw;
     padding: 50px;
 }
 
@@ -58,7 +61,7 @@ p {
     display: inline-block;
     padding: 0 25px;
     cursor: pointer;
-    color: black;
+    color: #000000;
     font-family: roboto,Arial, Helvetica, sans-serif;
     transition:all 1s;
     font-size: 14px;
@@ -68,7 +71,7 @@ p {
 }
 
 .button:hover {
-    background-color: rgb(144, 142, 142);
+    background-color: #908e8e;
     transition: all 1s;
 }
 
@@ -84,6 +87,6 @@ input{
     color: #666;
     font-size: 16px;
     font-weight: 500;
-    background-color: rgb(191, 185, 185) ;
+    background-color: #bfb9b9 ;
     outline: none;
 }
