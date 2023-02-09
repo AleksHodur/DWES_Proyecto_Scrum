@@ -9,8 +9,8 @@ $usuario = new Usuario();
 
 if ((isset($_SESSION['token'])) && isset($_POST['token'])) {
     if ($_SESSION['token'] == $_POST['token']) {
-        echo "token correcto";
         if (isset($_SESSION['usuario'])) {
+           //header("Location:vistaUsuario.php");
            require_once 'vistaUsuario.php';
         
         } elseif ((isset($_POST['usuario'])) && (isset($_POST['contrasena']))) {
@@ -19,19 +19,21 @@ if ((isset($_SESSION['token'])) && isset($_POST['token'])) {
             $patron = '/^[a-z0-9]+@[a-z0-9]+\.[a-z]{2,3}$/';
         
             if (preg_match($patron, $_POST['usuario'])) {
-                echo "<p>Usuario: " . $usuarioFormulario . "</p>";
-                echo "<p>Contraseña: $contrasenaFormulario</p>";
+                //echo "<p>Usuario: " . $usuarioFormulario . "</p>";
+                //echo "<p>Contraseña: $contrasenaFormulario</p>";
 
                 if ($usuario->usuarioExiste($usuarioFormulario, $contrasenaFormulario)) {
-                    echo " el usuario existe";
+                    //echo " el usuario existe";
                     $_SESSION['usuario'] = $usuario;
+                    //header("Location:vistaUsuario.php");
+                    require_once 'vistaUsuario.php';
                 } else {
-                    echo " el usuario no existe";
-                    echo "<a>Crear usuario</a>";
+                    //echo " el usuario no existe";
+                    //echo "<a>Crear usuario</a>";
                 }
 
             } else {
-                echo " falló el patrón";
+                //echo " falló el patrón";
             }
         } 
     }
