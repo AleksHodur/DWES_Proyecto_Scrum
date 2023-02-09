@@ -42,7 +42,11 @@
 
         try{
             $consulta = "INSERT INTO $tabla ($nombresCampos) VALUES ($valoresCampos);";
+            $consulta = "INSERT INTO $tabla ($nombresCampos) VALUES ($valoresCampos);";
             $resultado = $this->conectar()->prepare($consulta);
+            //$resultado->execute();
+            $resultado->execute($arrayExecute);
+            
             //$resultado->execute();
             $resultado->execute($arrayExecute);
             
@@ -67,8 +71,10 @@
             $resultado->execute(array('id' => $id));
 
             return true;
+            return true;
 
         }catch(Exception $e){
+            return false;
             return false;
         }
     }
@@ -85,18 +91,22 @@
 
         try{
             $consulta = "UPDATE $tabla SET  $nombreCampo = :valorCampo WHERE ID = :id;";
+            $consulta = "UPDATE $tabla SET  $nombreCampo = :valorCampo WHERE ID = :id;";
             $resultado = $this->conectar()->prepare($consulta);
             $resultado->execute(array('valorCampo' => $valorCampo, 'id' => $id));
 
             echo "<p>Actualización realizada con éxito</p>";
+            echo "<p>Actualización realizada con éxito</p>";
 
         }catch(Exception $e){
+            echo "<p>Error de actualización</p>";
             echo "<p>Error de actualización</p>";
         }
     }
 
     /**
      * Función cuyo objetivo es leer filas de una tabla de la base de datos
+     * y devolver todos sus campos en un array
      * y devolver todos sus campos en un array
      * @author Aleksandra
      * @param string $tabla nombre de la tabla
@@ -115,6 +125,12 @@
 
                 $nombresCampos = $this->getNombresCampos($tabla);
 
+                $nombresCampos = $this->getNombresCampos($tabla);
+
+                for($i = 0; $i < count($nombresCampos); $i++){
+                    $nombre = $nombresCampos[$i];
+                    $campos[$nombre] = $elemento[$nombre];
+                }
                 for($i = 0; $i < count($nombresCampos); $i++){
                     $nombre = $nombresCampos[$i];
                     $campos[$nombre] = $elemento[$nombre];
@@ -128,6 +144,26 @@
             echo "<p>La fila no existe leerporid</p>";
         }
 
+    }
+
+    /**
+     * Función cuyo objetivo es devolver un array con los nombres de los
+     * campos de una tabla
+     * @author Aleksandra Hodur
+     * @param String $tabla nombre de la tabla en la BD
+     */
+    public function getNombresCampos($tabla){
+
+        try{
+            $consulta = "DESCRIBE $tabla";
+            $resultado = $this->conectar()->prepare($consulta);
+            $resultado->execute();
+            $nombres = $resultado->fetchAll(PDO::FETCH_COLUMN);
+
+            return $nombres;
+        }catch(Exception $e){
+            echo "<p>Fallo en nombres campos</p>";
+        }
     }
 
     /**
