@@ -40,8 +40,6 @@
      */
     public function insertar($tabla, $nombresCampos, $valoresCampos, $arrayExecute) {
 
-        //$correo, $contrasena, $tipo, $descripcion
-
         try{
             $consulta = "INSERT INTO $tabla ($nombresCampos) VALUES ($valoresCampos);";
             $resultado = $this->conectar()->prepare($consulta);

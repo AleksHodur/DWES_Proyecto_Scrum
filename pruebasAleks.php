@@ -29,7 +29,7 @@ echo "<hr>
 
 $nuevoUsuario = new Usuario();
 $correo = 'ala@ala.ala';
-$contrasena = 'hola';
+$contrasena = 'ala';
 
 if(!$nuevoUsuario->usuarioExiste($correo, false)){
     $nuevoUsuario->insertar($correo, $contrasena, '1', 'Descripcion corta de ala');
