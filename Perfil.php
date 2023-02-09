@@ -37,6 +37,34 @@ class Perfil {
         $this->conexion = new PDO($dsn, $usuario, $clave);
     }
 
+        /**
+     * Setters y Getters de los atributos de los atributos
+     */
+    public function setId($id) {
+        $this->id = $id;
+    }
+    
+    public function setNombre($nombre) {
+        $this->id = $nombre;
+    }
+    
+    public function setDescripcion($descripcion) {
+        $this->id = $descripcion;
+    }
+
+
+    public function getId() {
+        return $this->id;
+    }
+
+    public function getNombre() {
+        return $this->nombre;
+    }
+
+    public function getDescripcion() {
+        return $this->descripcion;
+    }
+
     /**
      * FUNCION INSERTAR DATOS EN LA TABLA PERFIL PASANDILE NOMBRE Y DESCRIPCION
      * @param string $nombre
@@ -119,33 +147,6 @@ class Perfil {
     }
 */
   
-    /**
-     * Setters y Getters de los atributos de los atributos
-     */
-    public function setId($id) {
-        $this->id = $id;
-    }
-    
-    public function setNombre($nombre) {
-        $this->id = $nombre;
-    }
-    
-    public function setDescripcion($descripcion) {
-        $this->id = $descripcion;
-    }
-
-
-    public function getId() {
-        return $this->id;
-    }
-
-    public function getNombre() {
-        return $this->nombre;
-    }
-
-    public function getDescripcion() {
-        return $this->descripcion;
-    }
 }
 
 $perfiles =  new Perfil();
