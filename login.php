@@ -3,8 +3,11 @@
   <head>
     <meta charset="utf-8"/>
     <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="CSS/reset.css">
+    <link rel="stylesheet" type="text/css" href="CSS/estilos.css">
   </head>
   <body>
+    <div class="logo"></div>
     <h1>Inicio de Sesión</h1>
 <?php
 /**
@@ -29,13 +32,13 @@ $_SESSION['token'] = $token;
 /**
  * el formulario con usuario, contraseña y un input de tipo hidden para comprobar el token y dar más protección al formulario
  */
-echo "       <p>Usuario: <input type=\"text\" name=\"usuario\"></p>\n";
-echo "       <p>Contraseña: <input type=\"password\" name=\"contrasena\"></p>\n";
+echo "       <div class=\"input\"> <input type=\"text\" placeholder=\"Usuario\" name=\"usuario\"></div>\n";
+echo "       <div class=\"input\"> <input type=\"password\" placeholder=\"Contraseña\" name=\"contrasena\"></div>\n";
 echo "       <input type=\"hidden\" name=\"token\" value=\"$token\">\n";
-echo "       <button type=\"submit\" value=\"login\">Identificarse</button>\n";
+echo "       <button class=\"button\" type=\"submit\" value=\"login\">Identificarse</button>\n";
 echo "    </form>\n";
 
 ?>
-
+    
     </body>
 <html>
