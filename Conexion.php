@@ -35,8 +35,11 @@
      * Función cuyo objetivo es insertar nuevas filas en una tabla de la base de datos
      * @author Aleksandra
      * @param string $tabla nombre de la tabla
-     * @param string $nombresCampos los nombres de los campos a insertar
-     * @param string $valoresCampos los valores de los campos a insertar
+     * @param string $nombresCampos los nombres de los campos a insertar separados por comas: campo1, campo2, campo3
+     * @param string $valoresCampos los valores de los campos a insertar en formato campo = :campo
+     * @param string $arrayExecute array que se meterá como parámetro en la función execute de la consulta, tendrá
+     *               una estructura clave valor, donde la clave tendrá que corresponder con lo puesto en $valoresCampos:
+     *               array('campo' => valorCampo)
      */
     public function insertar($tabla, $nombresCampos, $valoresCampos, $arrayExecute) {
 
@@ -155,8 +158,10 @@
      * Función cuyo objetivo es buscar el id de una fila que coincida con la condición
      * Si no existe dicha fila, devuelve -1. Si existe, devuelve el id
      * @param string $tabla nombre de la tabla a consultar
-     * @param string $condiciones las condiciones que se desea consultar
-     * @param array $arrayExecute array de índice valor que se le pasa objeto resultado para realizar execute()
+     * @param string $condiciones las condiciones que se desea consultar en formato campo = :campo
+     * @param array $arrayExecute array de índice valor que se le pasa al objeto resultado para realizar execute()
+     *              Tendrá una estructura clave valor, donde la clave tendrá que corresponder con lo puesto en $condiciones:
+     *              array('campo' => valorCampo)
      */
     public function buscarId($tabla, $condiciones, $arrayExecute){
 
