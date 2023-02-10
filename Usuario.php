@@ -64,6 +64,17 @@ class Usuario {
         $this->descripcion = $descripcion;
     }
 
+    /**
+     * Función cuyo objetivo es insertar un nuevo Usuario en la BD llamando
+     * a la función insertar() de la clase Conexion y, seguidamente, asignarle esos
+     * mismos atributos al objeto llamando a la función asignarAtributos()
+     * 
+     * @author Aleksandra Hodur
+     * @param string $correo
+     * @param string $contrasena
+     * @param int $tipo
+     * @param string $descripcion
+     */
     public function insertar($correo, $contrasena, $tipo, $descripcion){
         $conexion = new Conexion();
         $nombresCampos = 'correo, contrasena, tipo, descripcion';
@@ -75,11 +86,28 @@ class Usuario {
         $this->asignarAtributos($id);
     }
 
+
+    /**
+     * Función cuyo objetivo es eliminar al usuario de la BD llamando a la
+     * función eliminar() de la clase Conexion
+     * 
+     * @author Aleksandra Hodur
+     */
     public function eliminar(){
         $conexion = new Conexion();
         $conexion->eliminar('usuario', $this->getId());
     }
 
+    /**
+     * Función cuyo objetivo es actualizar el usuario en la BD llamando a la función
+     * actualizar() de la clase Conexion. Seguidamente, comprueba el nombre del campo,
+     * y actualiza su atributo correspondiente en el objeto
+     * 
+     * @author Aleksandra
+     * @param string $nombreCampo nombre del campo que se desea cambiar
+     * @param string $valorCampo valor nuevo que se le desea asignar al campo
+     * 
+     */
     public function actualizar($nombreCampo, $valorCampo){
         $conexion = new Conexion();
         $conexion->actualizar('usuario', $this->getId(), $nombreCampo, $valorCampo);
@@ -144,7 +172,9 @@ class Usuario {
 
     /**
      * Función cuyo objetivo es asignarle los atributos al objeto correspondientes con 
-     * la tabla usuario en la BD
+     * la tabla usuario en la BD. Llama a la función leerPorId() que lee una fila por su id
+     * y devuelve un array clave valor, donde la clave corresponde al nombre del campo
+     * y el valor, a su valor
      * @author Aleksandra Hodur
      * @param int $id el id del usuario en la BD
      */
@@ -185,30 +215,6 @@ class Usuario {
 
         if($error){
             echo "Error en la asignación de atributos";
-        }
-    }
-
-    /** 
-     * @author Rubén Torres
-    */
-    /**
-     * Summary of setUsuario
-     * @param string $correo
-     * @param string $contrasena
-     * @param string $tipoUsuario
-     * @return void
-     * Con este setter insertamos los datos del usuario en la bdd
-     */
-    public function setUsuario($correo, $contrasena, $tipoUsuario) {
-       // $arrayExecute = 'array("valoresCampos" =>$valoresCampo)';
-       $conexion = new Conexion();
-        $resultado = $conexion->insertar('usuario', 'correo, contrasena, tipo', $correo . ', ' . $contrasena . ', ' . $tipoUsuario);
-
-        if ($resultado) {
-            echo "Se ha creado el usuario";
-
-        } else {
-            echo "Error al crear el usuario";
         }
     }
 
