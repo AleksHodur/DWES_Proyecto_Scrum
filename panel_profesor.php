@@ -1,9 +1,13 @@
 <?php
 
-if(isset($_SESSION['usuario'])){
-    $usuario = $_SESSION['usuario'];
+require_once "Conexion.php";
 
-    if($usuario->getTipo == 1){
+//if(isset($_SESSION['usuario'])){
+    /*$usuario = $_SESSION['usuario'];
+
+    echo "<pre>" . $usuario->toString() . "</pre>";*/
+
+    //if($usuario->getTipo == 1){
 
         echo "<!DOCTYPE html>
         <html lang=\"en\">
@@ -14,35 +18,44 @@ if(isset($_SESSION['usuario'])){
             <title>Panel profesor</title>
         </head>
         <body>
-            <tr>
-                <th>Correo</th>
-                <th>Descripcion</th>
-                <th>Opciones</th>
-            </tr>";
+            <table border='1'>
+                <tr>
+                    <th>Correo</th>
+                    <th>Descripcion</th>
+                    <th>Opciones</th>
+                </tr>";
 
         /*En un futuro, esto podría llamar a una función que estuviera en una clase profesor? en lugar
         llamar directamente a Conexion.php. Entonces, se podría plantear para que devolviera
         objetos Usuario en lugar de un array de arrays */
 
-        $alumnos = listarPorCampo('usuario', 'WHERE tipo = :tipo', array('tipo' => 1)); 
+        $conexion = new Conexion;
+        $alumnos = $conexion->listarPorCampo('usuario', 'tipo = :tipo', array('tipo' => 2)); 
 
-        for($i = 0; $i < count($alumnos); $i++){
+        if($alumnos){
+            for($i = 0; $i < count($alumnos); $i++){
 
-            echo "          <tr>
-            <td>" . $alumnos[$i]['correo'] . "</td>
-            <td>" . $alumnos[$i]['descripcion'] . "</td>
-            <td>
-                <ul>
-                    <li>Actualizar</li>
-                    <li>Eliminar</li>
-                </ul>
-            </td>
-            </tr>\n";
+                echo "          <tr>
+                <td>" . $alumnos[$i]['correo'] . "</td>
+                <td>" . $alumnos[$i]['descripcion'] . "</td>
+                <td>
+                    <ul>
+                        <li><button>Actualizar</button></li>
+                        <li><button>Eliminar</button></li>
+                    </ul>
+                </td>
+                </tr>\n";
+            }
+        }else{
+            echo "<p>Error de conexión. Inténtelo otra vez</p>";
         }
             
-        echo "</body>
+        echo "</table>
+        </body>
         </html>";
-    }
-}
+    //}
+/*}else{
+    echo "<p>No se detecta al usuario en sesión</p>";
+}*/
 
 ?>

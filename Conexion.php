@@ -199,7 +199,7 @@
         try{
             
             $filas = [];
-            $consulta = "SELECT FROM $tabla WHERE $condicion";
+            $consulta = "SELECT * FROM $tabla WHERE $condicion;";
             $resultado = $this->conectar()->prepare($consulta);
             $resultado->execute($arrayExecute);
 
@@ -212,13 +212,13 @@
                     $campos[$nombre] = $elemento[$nombre];
                 }
 
-                $filas[] = $campos;
+                $filas[] = $elemento;
             }
 
             return $filas;
 
         }catch(Exception $e){
-            return "Error de conexión";
+            return false;
         }
     }
 
