@@ -15,14 +15,14 @@ header a{
 }
 
 .logo {
-    background-image: url(../../img/logoIBQ.jpg);
+    background-image: url(../img/logoIBQ.jpg);
     width: 121px;
     height: 61px;
     margin-left: 20px;
     margin-right: 50px;
 }
 .usuarioIcono {
-    background-image: url(../../img/acceso.png);
+    background-image: url(../img/acceso.png);
     background-size: 50px 50px;
     height: 50px;
     width: 50px;

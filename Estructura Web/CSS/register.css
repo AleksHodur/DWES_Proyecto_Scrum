@@ -11,14 +11,14 @@ html, body {
     height: 100vh;
 }
 body{
-    background-image: url(../../img/griego.jpg);
+    background-image: url(../img/griego.jpg);
     
     background-size: 100%;
     background-repeat: no-repeat;
 }
 
 .logo {
-    background-image: url(../../img/logoIBQ.jpg);
+    background-image: url(../img/logoIBQ.jpg);
     position: absolute;
     bottom: 5vh;
     left: 2vw;
