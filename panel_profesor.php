@@ -21,15 +21,16 @@ if(isset($_SESSION['usuario'])){
             </tr>";
 
         /*En un futuro, esto podría llamar a una función que estuviera en una clase profesor? en lugar
-        llamar directamente a Conexion.php */
+        llamar directamente a Conexion.php. Entonces, se podría plantear para que devolviera
+        objetos Usuario en lugar de un array de arrays */
 
         $alumnos = listarPorCampo('usuario', 'WHERE tipo = :tipo', array('tipo' => 1)); 
 
         for($i = 0; $i < count($alumnos); $i++){
 
             echo "          <tr>
-            <td>" . $alumnos[$i]->getCorreo() . "</td>
-            <td>" . $alumnos[$i]->getDescripcion() . "</td>
+            <td>" . $alumnos[$i]['correo'] . "</td>
+            <td>" . $alumnos[$i]['descripcion'] . "</td>
             <td>
                 <ul>
                     <li>Actualizar</li>

@@ -198,11 +198,24 @@
 
         try{
             
+            $filas = [];
             $consulta = "SELECT FROM $tabla WHERE $condicion";
             $resultado = $this->conectar()->prepare($consulta);
             $resultado->execute($arrayExecute);
 
-            return "Consulta realizada con éxito";
+            foreach($resultado as $elemento){
+                $campos = [];
+                $nombresCampos = $this->getNombresCampos($tabla);
+
+                for($i = 0; $i < count($nombresCampos); $i++){
+                    $nombre = $nombresCampos[$i];
+                    $campos[$nombre] = $elemento[$nombre];
+                }
+
+                $filas[] = $campos;
+            }
+
+            return $filas;
 
         }catch(Exception $e){
             return "Error de conexión";
