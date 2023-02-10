@@ -52,9 +52,21 @@ if(isset($_SESSION['usuario'])){
         }else{
             echo "<p>Error de conexión. Inténtelo otra vez</p>";
         }
-            
+
         echo "</table>
-        </body>
+        <form>
+            <label for=\"correo\">Correo:</label>
+            <input type=\"text\" name=\"correo\">
+            <label for=\"contrasena\">Contrasena:</label>
+            <input type=\"text\" name=\"contrasena\">            
+            <label for=\"tipo\">Tipo:</label>
+            <input type=\"text\" name=\"tipo\">            
+            <label for=\"descripcion\">Descripción:</label>
+            <input type=\"text\" name=\"descripcion\">
+            <input type=\"submit\" value=\"Insertar\">
+        </form>";
+            
+        echo "</body>
         </html>";
     }
 }else{
