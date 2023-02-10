@@ -12,7 +12,8 @@ if ((isset($_SESSION['token'])) && isset($_POST['token'])) {
         if (isset($_SESSION['usuario'])) {
            //header("Location:vistaUsuario.php");
            require_once 'vistaUsuario.php';
-        
+        } else if (isset($_POST['register'])) {
+            require_once 'registro.php';
         } elseif ((isset($_POST['usuario'])) && (isset($_POST['contrasena']))) {
             $usuarioFormulario = trim(strip_tags($_POST['usuario']));
             $contrasenaFormulario = trim(strip_tags($_POST['contrasena']));
@@ -62,5 +63,6 @@ if ((isset($_SESSION['token'])) && isset($_POST['token'])) {
     echo "       <div class=\"input\"> <input type=\"password\" placeholder=\"Contraseña\" name=\"contrasena\" maxlength=\"16\"></div>\n";
     echo "       <input type=\"hidden\" name=\"token\" value=\"$token\">\n";
     echo "       <button class=\"button\" type=\"submit\" value=\"login\">Identificarse</button>\n";
+    echo "       <button class=\"button\" type=\"submit\" name=\"register\" value=\"register\">Registrarse</button>\n";
     echo "    </form>\n";
 }
