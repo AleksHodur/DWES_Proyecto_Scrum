@@ -1,13 +1,14 @@
 <?php
+require_once 'Conexion.php';
+require_once 'Usuario.php';
 
-require_once "Conexion.php";
+session_start();
 
-//if(isset($_SESSION['usuario'])){
-    /*$usuario = $_SESSION['usuario'];
+if(isset($_SESSION['usuario'])){
 
-    echo "<pre>" . $usuario->toString() . "</pre>";*/
+    $usuario = $_SESSION['usuario'];
 
-    //if($usuario->getTipo == 1){
+    if($usuario->getTipo() == 2){
 
         echo "<!DOCTYPE html>
         <html lang=\"en\">
@@ -18,6 +19,8 @@ require_once "Conexion.php";
             <title>Panel profesor</title>
         </head>
         <body>
+            <h1>Panel de profesor</h1>
+            <h2>Tabla alumnos</h2>
             <table border='1'>
                 <tr>
                     <th>Correo</th>
@@ -30,7 +33,7 @@ require_once "Conexion.php";
         objetos Usuario en lugar de un array de arrays */
 
         $conexion = new Conexion;
-        $alumnos = $conexion->listarPorCampo('usuario', 'tipo = :tipo', array('tipo' => 2)); 
+        $alumnos = $conexion->listarPorCampo('usuario', 'tipo = :tipo', array('tipo' => 1)); 
 
         if($alumnos){
             for($i = 0; $i < count($alumnos); $i++){
@@ -53,9 +56,9 @@ require_once "Conexion.php";
         echo "</table>
         </body>
         </html>";
-    //}
-/*}else{
+    }
+}else{
     echo "<p>No se detecta al usuario en sesión</p>";
-}*/
+}
 
 ?>
