@@ -14,6 +14,22 @@ if(isset($_POST['eliminar'])){
     }
 }
 
+if(isset($_POST['insertar'])){
+    if($_POST['insertar']){
+
+        if(isset($_POST['correo']) && isset($_POST['contrasena']) && isset($_POST['tipo']) && isset($_POST['descripcion'])){
+            
+            $usuario = new Usuario();
+            $resultado = $usuario->insertar($_POST['correo'], $_POST['contrasena'], $_POST['tipo'], $_POST['descripcion']);
+
+            if(!$resultado){
+                echo "<p>No se ha podido insertar el usuario</p>";
+            }
+    
+        }
+    }
+}
+
 if(isset($_SESSION['usuario'])){
 
     $usuario = $_SESSION['usuario'];
@@ -69,7 +85,7 @@ if(isset($_SESSION['usuario'])){
         }
 
         echo "</table>
-        <form>
+        <form action=\"" . $_SERVER['PHP_SELF'] . "\" method=\"post\">
             <label for=\"correo\">Correo:</label>
             <input type=\"text\" name=\"correo\">
             <label for=\"contrasena\">Contrasena:</label>
@@ -78,6 +94,7 @@ if(isset($_SESSION['usuario'])){
             <input type=\"text\" name=\"tipo\">            
             <label for=\"descripcion\">Descripción:</label>
             <input type=\"text\" name=\"descripcion\">
+            <input type=\"hidden\" name=\"insertar\" value=\"true\">
             <input type=\"submit\" value=\"Insertar\">
         </form>";
             
