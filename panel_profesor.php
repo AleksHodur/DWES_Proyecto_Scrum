@@ -4,6 +4,16 @@ require_once 'Usuario.php';
 
 session_start();
 
+if(isset($_POST['eliminar'])){
+    
+    $usuario = new Usuario();
+
+    if($usuario->usuarioExiste($_POST['eliminar'], false)){
+
+        $usuario->eliminar();
+    }
+}
+
 if(isset($_SESSION['usuario'])){
 
     $usuario = $_SESSION['usuario'];
@@ -44,7 +54,12 @@ if(isset($_SESSION['usuario'])){
                 <td>
                     <ul>
                         <li><button>Actualizar</button></li>
-                        <li><button>Eliminar</button></li>
+                        <li>
+                            <form action=\"" . $_SERVER['PHP_SELF'] . "\" method=\"post\">
+                                <input type=\"hidden\" name=\"eliminar\" value=\"" . $alumnos[$i]['correo'] . "\">
+                                <button type=\"submit\">Eliminar</button>
+                            </form>
+                        </li>
                     </ul>
                 </td>
                 </tr>\n";
