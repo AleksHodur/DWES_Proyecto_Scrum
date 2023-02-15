@@ -76,14 +76,20 @@ class Usuario {
      * @param string $descripcion
      */
     public function insertar($correo, $contrasena, $tipo, $descripcion){
-        $conexion = new Conexion();
-        $nombresCampos = 'correo, contrasena, tipo, descripcion';
-        $valoresCampos = ":correo, :contrasena, :tipo, :descripcion";
-        $arrayExecute = array('correo' => $correo, 'contrasena' => $contrasena, 'tipo' => $tipo, 'descripcion' => $descripcion);
-        
-        $conexion->insertar('usuario', $nombresCampos, $valoresCampos, $arrayExecute);
-        $id = $conexion->buscarId('usuario', 'correo = :correo', array('correo' => $correo));
-        $this->asignarAtributos($id);
+        if(!$this->usuarioExiste($correo, false)){ //de este modo, no se podrán repetir los correos
+            $conexion = new Conexion();
+            $nombresCampos = 'correo, contrasena, tipo, descripcion';
+            $valoresCampos = ":correo, :contrasena, :tipo, :descripcion";
+            $arrayExecute = array('correo' => $correo, 'contrasena' => $contrasena, 'tipo' => $tipo, 'descripcion' => $descripcion);
+            
+            $conexion->insertar('usuario', $nombresCampos, $valoresCampos, $arrayExecute);
+            $id = $conexion->buscarId('usuario', 'correo = :correo', array('correo' => $correo));
+            $this->asignarAtributos($id);
+
+            return true;
+        }else{
+            return false;
+        }
     }
 
 
