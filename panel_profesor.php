@@ -4,7 +4,7 @@ require_once 'Usuario.php';
 
 session_start();
 
-if(isset($_POST['eliminar'])){
+/*if(isset($_POST['eliminar'])){
     
     $usuario = new Usuario();
 
@@ -28,7 +28,7 @@ if(isset($_POST['insertar'])){
     
         }
     }
-}
+}*/
 
 if(isset($_SESSION['usuario'])){
 
@@ -36,7 +36,9 @@ if(isset($_SESSION['usuario'])){
 
     if($usuario->getTipo() == 2){
 
-        echo "<!DOCTYPE html>
+        header("Location:Estructura_Web/panel_profesor.html");
+
+        /*echo "<!DOCTYPE html>
         <html lang=\"en\">
         <head>
             <meta charset=\"UTF-8\">
@@ -56,7 +58,7 @@ if(isset($_SESSION['usuario'])){
 
         /*En un futuro, esto podría llamar a una función que estuviera en una clase profesor? en lugar
         llamar directamente a Conexion.php. Entonces, se podría plantear para que devolviera
-        objetos Usuario en lugar de un array de arrays */
+        objetos Usuario en lugar de un array de arrays 
 
         $conexion = new Conexion;
         $alumnos = $conexion->listarPorCampo('usuario', 'tipo = :tipo', array('tipo' => 1)); 
@@ -99,7 +101,7 @@ if(isset($_SESSION['usuario'])){
         </form>";
             
         echo "</body>
-        </html>";
+        </html>";*/
     }
 }else{
     echo "<p>No se detecta al usuario en sesión</p>";
