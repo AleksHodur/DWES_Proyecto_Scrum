@@ -77,13 +77,13 @@ class Usuario {
      */
     public function insertar($correo, $contrasena, $tipo, $descripcion){
         if(!$this->usuarioExiste($correo, false)){ //de este modo, no se podrán repetir los correos
-            $conexion = new Conexion();
+            //$conexion = new Conexion();
             $nombresCampos = 'correo, contrasena, tipo, descripcion';
             $valoresCampos = ":correo, :contrasena, :tipo, :descripcion";
             $arrayExecute = array('correo' => $correo, 'contrasena' => $contrasena, 'tipo' => $tipo, 'descripcion' => $descripcion);
             
-            $conexion->insertar('usuario', $nombresCampos, $valoresCampos, $arrayExecute);
-            $id = $conexion->buscarId('usuario', 'correo = :correo', array('correo' => $correo));
+            Conexion::insertar('usuario', $nombresCampos, $valoresCampos, $arrayExecute);
+            $id = Conexion::buscarId('usuario', 'correo = :correo', array('correo' => $correo));
             $this->asignarAtributos($id);
 
             return true;
@@ -100,8 +100,8 @@ class Usuario {
      * @author Aleksandra Hodur
      */
     public function eliminar(){
-        $conexion = new Conexion();
-        $conexion->eliminar('usuario', $this->getId());
+        //$conexion = new Conexion();
+        Conexion::eliminar('usuario', $this->getId());
     }
 
     /**
@@ -115,8 +115,8 @@ class Usuario {
      * 
      */
     public function actualizar($nombreCampo, $valorCampo){
-        $conexion = new Conexion();
-        $conexion->actualizar('usuario', $this->getId(), $nombreCampo, $valorCampo);
+        //$conexion = new Conexion();
+        Conexion::actualizar('usuario', $this->getId(), $nombreCampo, $valorCampo);
 
         switch($nombreCampo){
             case 'id':
@@ -154,7 +154,7 @@ class Usuario {
      *con la función usuario existe llamamos al método estático leer que está en conexión para comprobar que esté dentro de la bdd
      */
     public function usuarioExiste($correo, $contrasena) {
-        $conexion = new Conexion();
+        //$conexion = new Conexion();
 
         if($contrasena){
             $condiciones = 'correo = :correo AND contrasena = :contrasena';
@@ -164,7 +164,7 @@ class Usuario {
             $arrayExecute = array("correo" => $correo);
         }
 
-        $id = $conexion->buscarId('usuario', $condiciones, $arrayExecute);
+        $id = Conexion::buscarId('usuario', $condiciones, $arrayExecute);
 
         if($id < 0) {
             //echo "Usuario no existe";
@@ -185,8 +185,8 @@ class Usuario {
      * @param int $id el id del usuario en la BD
      */
     public function asignarAtributos($id){
-        $conexion = new Conexion();
-        $atributos = $conexion->leerPorId('usuario', $id);
+        //$conexion = new Conexion();
+        $atributos = Conexion::leerPorId('usuario', $id);
         $error = false;
 
         if(isset($atributos['id'])){

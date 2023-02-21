@@ -10,8 +10,6 @@
    * @author Aleksandra y Pablo
    */
   class Conexion{
-    private $cadenaConexion;
-    private $conexion;
 
     /**
      * Función cuyo objetivo es conectar con la base de datos
@@ -19,7 +17,7 @@
      * @param string $cadenaConexion dsn de la conexion
      * @param Object $conexion objeto PDO que conecta con la BD
      */
-    public function conectar(){
+    static public function conectar(){
         try{
             $cadenaConexion = "mysql:host=".DB_HOST.";dbname=".DB_NOMBRE.";charset=".DB_CHARSET;
             $conexion = new PDO($cadenaConexion, DB_USUARIO, DB_contrasena);
@@ -41,11 +39,11 @@
      *               una estructura clave valor, donde la clave tendrá que corresponder con lo puesto en $valoresCampos:
      *               array('campo' => valorCampo)
      */
-    public function insertar($tabla, $nombresCampos, $valoresCampos, $arrayExecute) {
+    static public function insertar($tabla, $nombresCampos, $valoresCampos, $arrayExecute) {
 
         try{
             $consulta = "INSERT INTO $tabla ($nombresCampos) VALUES ($valoresCampos);";
-            $resultado = $this->conectar()->prepare($consulta);
+            $resultado = self::conectar()->prepare($consulta);
             //$resultado->execute();
             $resultado->execute($arrayExecute);
             
@@ -62,11 +60,11 @@
      * @param string $tabla nombre de la tabla a la que pertenece la fila
      * @param string $id id de la fila a eliminar
      */
-    public function eliminar($tabla, $id) {
+    static public function eliminar($tabla, $id) {
 
         try{
             $consulta = "DELETE FROM $tabla WHERE ID = :id;";
-            $resultado = $this->conectar()->prepare($consulta);
+            $resultado = self::conectar()->prepare($consulta);
             $resultado->execute(array('id' => $id));
 
             return true;
@@ -84,11 +82,11 @@
      * @param string $nombreCampo nombre del campo a actualizar
      * @param string $valorCampo nuevo valor del campo
      */
-    public function actualizar($tabla, $id, $nombreCampo, $valorCampo) {
+    static public function actualizar($tabla, $id, $nombreCampo, $valorCampo) {
 
         try{
             $consulta = "UPDATE $tabla SET  $nombreCampo = :valorCampo WHERE ID = :id;";
-            $resultado = $this->conectar()->prepare($consulta);
+            $resultado = self::conectar()->prepare($consulta);
             $resultado->execute(array('valorCampo' => $valorCampo, 'id' => $id));
 
             echo "<p>Actualización realizada con éxito</p>";
@@ -107,17 +105,17 @@
      * @param string $id id de la fila por leer
      * @return array $campos array de los campos de la fila con sus valores
      */
-    public function leerPorId($tabla, $id) {
+    static public function leerPorId($tabla, $id) {
 
         try{
             $campos = [];
             $consulta = "SELECT * FROM $tabla WHERE ID = :id;";
-            $resultado = $this->conectar()->prepare($consulta);
+            $resultado = self::conectar()->prepare($consulta);
             $resultado->execute(array('id' => $id));
 
             foreach($resultado as $elemento){
 
-                $nombresCampos = $this->getNombresCampos($tabla);
+                $nombresCampos = self::getNombresCampos($tabla);
 
                 for($i = 0; $i < count($nombresCampos); $i++){
                     $nombre = $nombresCampos[$i];
@@ -140,11 +138,11 @@
      * @author Aleksandra Hodur
      * @param String $tabla nombre de la tabla en la BD
      */
-    public function getNombresCampos($tabla){
+    static public function getNombresCampos($tabla){
 
         try{
             $consulta = "DESCRIBE $tabla";
-            $resultado = $this->conectar()->prepare($consulta);
+            $resultado = self::conectar()->prepare($consulta);
             $resultado->execute();
             $nombres = $resultado->fetchAll(PDO::FETCH_COLUMN);
 
@@ -163,14 +161,14 @@
      *              Tendrá una estructura clave valor, donde la clave tendrá que corresponder con lo puesto en $condiciones:
      *              array('campo' => valorCampo)
      */
-    public function buscarId($tabla, $condiciones, $arrayExecute){
+    static public function buscarId($tabla, $condiciones, $arrayExecute){
 
         $id = -1;
 
         try{
             
             $consulta = "SELECT * FROM $tabla WHERE $condiciones;";
-            $resultado = $this->conectar()->prepare($consulta);
+            $resultado = self::conectar()->prepare($consulta);
             $resultado->execute($arrayExecute);
             $filas = $resultado->rowCount();
             
@@ -194,18 +192,18 @@
      * @param string $condicion condición que se desea consultar
      * @param array $arrayExecute array de índice valor que se le pasa objeto resultado para realizar execute()
      */   
-    public function listarPorCampo($tabla, $condicion, $arrayExecute) {
+    static public function listarPorCampo($tabla, $condicion, $arrayExecute) {
 
         try{
             
             $filas = [];
             $consulta = "SELECT * FROM $tabla WHERE $condicion;";
-            $resultado = $this->conectar()->prepare($consulta);
+            $resultado = self::conectar()->prepare($consulta);
             $resultado->execute($arrayExecute);
 
             foreach($resultado as $elemento){
                 $campos = [];
-                $nombresCampos = $this->getNombresCampos($tabla);
+                $nombresCampos = self::getNombresCampos($tabla);
 
                 for($i = 0; $i < count($nombresCampos); $i++){
                     $nombre = $nombresCampos[$i];
