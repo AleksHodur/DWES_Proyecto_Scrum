@@ -43,17 +43,10 @@
      */
     public function insertar($tabla, $nombresCampos, $valoresCampos, $arrayExecute) {
 
-        try{
-            $consulta = "INSERT INTO $tabla ($nombresCampos) VALUES ($valoresCampos);";
-            $resultado = $this->conectar()->prepare($consulta);
-            //$resultado->execute();
-            $resultado->execute($arrayExecute);
-            
-            return true;
-
-        }catch(Exception $e){
-            return false;
-        }
+        $consulta = "INSERT INTO $tabla ($nombresCampos) VALUES ($valoresCampos);";
+        $resultado = $this->conectar()->prepare($consulta);
+        //$resultado->execute();
+        $resultado->execute($arrayExecute);
     }
 
     /**
@@ -222,5 +215,12 @@
         }
     }
 
-    
+    public function eliminarRastro($tabla, $nombre, $valor) {
+
+            $consulta = "DELETE FROM $tabla WHERE $nombre = :valor;";
+            $resultado = $this->conectar()->prepare($consulta);
+            $resultado->execute(array('valor' => $valor));
+    }
+
+
 }
