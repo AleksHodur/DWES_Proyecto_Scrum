@@ -1,7 +1,7 @@
 let xmlhttp = new XMLHttpRequest;
 let tabla = document.getElementById('tablaAlumnos');
 
-xmlhttp.onreadystatechange(function (){
+xmlhttp.onreadystatechange = function (){
 
     if(this.readyState == 4 && this.status == 200){
 
@@ -19,7 +19,7 @@ xmlhttp.onreadystatechange(function (){
             document.body.appendChild(fila);
         }
     }
-});
+};
 
 xmlhttp.open('GET', '../panel_profesor.php', true);
 xmlhttp.send();
