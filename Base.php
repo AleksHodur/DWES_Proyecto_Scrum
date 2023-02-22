@@ -70,6 +70,25 @@
 				);"
 			];
 
+	/**
+ 	* @param array $tablaRatreoUsuario contiene la cracion su tabla 
+ 	*/
+			$tablaRastreoUsuario = [
+				'rastreo' => "CREATE TABLE IF NOT EXISTS rastrearUsuario(
+					id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+					correo VARCHAR(50) NOT NULL,
+					horaConexion DATETIME NOT NULL
+					);"
+			];
+
+
+			//EJECUTA LAS CONSULTAS PARA CREAR LA TABLA RASTREOUSUARIO
+			foreach ($tablaRastreoUsaurio as $nombre => $sql){
+				if($bd->query($sql)){
+					echo "<p>Tabla $nombre creada</p>\n";
+					}
+			}
+
 		//EJECUTA LAS CONSULTAS PARA CREAR LA TABLA PERFIL
 			foreach ($tablaPerfil as $nombre => $sql){
 					if($bd->query($sql)){
