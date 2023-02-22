@@ -8,6 +8,7 @@ session_start();
 
 require_once 'Conexion.php';
 require_once 'Usuario.php';
+require_once 'RastroUsuario.php';
 
 /**instanciamos las clases obteniendo los objetos correspondientes
  */
@@ -68,6 +69,12 @@ if ((isset($_SESSION['token'])) && isset($_POST['token'])) {
                      */
                     $_SESSION['usuario'] = $usuario;
                     //header("Location:vistaUsuario.php");
+                 /**
+                  * @pablo para meter el correo en la base
+                  */
+                    $rastroUsuario = new RastroUsuario();
+                    $rastroUsuario -> insertarHora($usuarioFormulario);
+
                     require_once 'vistaUsuario.php';
                 } else {
                     //no existe el usuario
