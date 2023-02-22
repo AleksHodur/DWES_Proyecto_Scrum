@@ -17,7 +17,13 @@ if(isset($_SESSION['usuario'])){
             $json .= "{\"correo\": \"" . $alumnos[$i]['correo'] . "\",
                 \"contrasena\": \"" . $alumnos[$i]['contrasena'] . "\",
                 \"tipo\": " . $alumnos[$i]['tipo'] . ",
-                \"descripcion\": \"" . $alumnos[$i]['descripcion'] . "\"}\n";
+                \"descripcion\": \"" . $alumnos[$i]['descripcion'] . "\"}";
+
+                if($i < (count($alumnos) - 1)){
+                    $json .= ",\n";
+                }else{
+                    $json .= "\n";
+                }
         }
 
         $json .= "]";
