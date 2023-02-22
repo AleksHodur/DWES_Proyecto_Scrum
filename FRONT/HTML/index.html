@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <link rel="stylesheet" href="../CSS/reset.css">
+    <link rel="stylesheet" href="../CSS/body.css">
+    <link rel="stylesheet" href="../CSS/fuentes.css">
+    <link rel="stylesheet" href="../CSS/header.css">
+    <link rel="stylesheet" href="../CSS/main.css">
+    <link rel="stylesheet" href="../CSS/footer.css">
+</head>
+<body>
+    <header>
+        <div class="logo"></div>
+        <nav class="barNav">
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Podcast</a></li>
+                <li><a href="#">Contacto</a></li>
+                <li><a href="register.html">Registrarse</a></li>
+            </ul>
+        </nav>
+        <a href="login.html"><div class="usuarioIcono"></div></a>
+        </div>
+        
+    </header>
+    
+    <main>
+        <section class="section">
+            <div class="slider">
+                <div class="mySlide imagenSlider">
+                    <div class="numeroImagen">1/3</div>
+                    <div class="textoImagen">TÍTULO UNO
+                        <p class="parrafo">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, quisquam? Aliquid veritatis commodi est sapiente quisquam ducimus voluptates provident doloribus totam ut nostrum magnam praesentium ex molestiae, tempora sunt voluptas.</p>
+                    </div>
+                </div>
+                <div class="mySlide imagenSlider">
+                    <div class="numeroImagen">2/3</div>
+                    <div class="textoImagen">TÍTULO DOS
+                        <p class="parrafo">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum animi nisi recusandae rem officiis reprehenderit, delectus mollitia id dignissimos odit voluptates sit temporibus voluptate ad, tenetur molestias dicta odio in assumenda facilis libero quos nam.</p>
+                    </div>
+                </div>
+                <div class="mySlide imagenSlider">
+                    <div class="numeroImagen">3/3</div>
+                    <div class="textoImagen">TÍTULO TRES
+                        <p class="parrafo">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, quisquam? Aliquid veritatis commodi est sapiente quisquam ducimus voluptates provident doloribus totam ut nostrum magnam praesentium ex molestiae, tempora sunt voluptas.</p>
+                    </div>
+                </div>
+                
+                <a class="anterior" onclick="cambiarSlide(-1)" href="#">&#10094;</a>
+                <a class="posterior" onclick="cambiarSlide(1)" href="#">&#10095;</a>
+
+                <div class="mostrador">
+                    <span class="punto" onclick="actualSlide(1)"></span>
+                    <span class="punto" onclick="actualSlide(2)"></span>
+                    <span class="punto" onclick="actualSlide(3)"></span>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="multimedia">
+                <div class="video">
+                    <video width="100%" height="80%" controls></video>
+                    <h1>Historia de la filosofía I - Los primeros filósofos</h1>
+                </div>
+                <div class="video">
+                    <video width="100%" height="80%" controls></video>
+                    <h1>Historia de la filosofía II - Los Sofistas y Sócrates</h1>
+                </div>
+                <div class="video">
+                    <video width="100%" height="80%" controls></video>
+                    <h1>Historia de la filosofía III - Platón(I)</h1>
+                </div>
+                <div class="video">
+                    <video width="100%" height="80%" controls></video>
+                    <h1>Historia de la filosofía IV - Platón(II)</h1>
+                </div>
+                <div class="video">
+                    <video width="100%" height="80%" controls></video>
+                    <h1>Historia de la filosofía V - Aristóteles(I)</h1>
+                </div>
+                <div class="video">
+                    <video width="100%" height="80%" controls></video>
+                    <h1>Historia de la filosofía VI - Aristóteles(II)</h1>
+                </div>
+                <div class="video">
+                    <video width="100%" height="80%" controls></video>
+                    <h1>Filosofía medieval - Tomás de Aquino y guillermo Occam</h1>
+                </div>
+                <div class="video">
+                    <video width="100%" height="80%" controls></video>
+                    <h1>Filosofía moderna - Racionalismo(I) Descartes</h1>
+                </div>
+                <div class="video">
+                    <video width="100%" height="80%" controls></video>
+                    <h1>Filosofía moderna - Empirismo(I) Hume</h1>
+                </div>
+            </div>
+        </section>
+    </main>      
+    <footer>
+        
+    </footer>   
+    
+    <script src="../JAVASCRIPT/main.js"></script>
+</body>
+</html>

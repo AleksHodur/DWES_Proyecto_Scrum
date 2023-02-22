@@ -1,3 +1,8 @@
+<?php
+session_start();
+
+if (isset($_SESSION['usuario'])) {
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,19 +38,19 @@
             <div class="slider">
                 <div class="mySlide imagenSlider">
                     <div class="numeroImagen">1/3</div>
-                    <div class="textoImagen">TÍTULO UNO
+                    <div class="textoImagen">ÚLTIMOS PODCASTS
                         <p class="parrafo">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, quisquam? Aliquid veritatis commodi est sapiente quisquam ducimus voluptates provident doloribus totam ut nostrum magnam praesentium ex molestiae, tempora sunt voluptas.</p>
                     </div>
                 </div>
                 <div class="mySlide imagenSlider">
                     <div class="numeroImagen">2/3</div>
-                    <div class="textoImagen">TÍTULO DOS
+                    <div class="textoImagen">LOS MÁS VOTADOS
                         <p class="parrafo">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum animi nisi recusandae rem officiis reprehenderit, delectus mollitia id dignissimos odit voluptates sit temporibus voluptate ad, tenetur molestias dicta odio in assumenda facilis libero quos nam.</p>
                     </div>
                 </div>
                 <div class="mySlide imagenSlider">
                     <div class="numeroImagen">3/3</div>
-                    <div class="textoImagen">TÍTULO TRES
+                    <div class="textoImagen">
                         <p class="parrafo">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, quisquam? Aliquid veritatis commodi est sapiente quisquam ducimus voluptates provident doloribus totam ut nostrum magnam praesentium ex molestiae, tempora sunt voluptas.</p>
                     </div>
                 </div>
@@ -64,39 +69,39 @@
             <div class="multimedia">
                 <div class="video">
                     <video width="100%" height="80%" controls></video>
-                    <h1>Título</h1>
+                    <h1>Historia de la filosofía I - Los primeros filósofos</h1>
                 </div>
                 <div class="video">
                     <video width="100%" height="80%" controls></video>
-                    <h1>Título</h1>
+                    <h1>Historia de la filosofía II - Los Sofistas y Sócrates</h1>
                 </div>
                 <div class="video">
                     <video width="100%" height="80%" controls></video>
-                    <h1>Título</h1>
+                    <h1>Historia de la filosofía III - Platón(I)</h1>
                 </div>
                 <div class="video">
                     <video width="100%" height="80%" controls></video>
-                    <h1>Título</h1>
+                    <h1>Historia de la filosofía IV - Platón(II)</h1>
                 </div>
                 <div class="video">
                     <video width="100%" height="80%" controls></video>
-                    <h1>Título</h1>
+                    <h1>Historia de la filosofía V - Aristóteles(I)</h1>
                 </div>
                 <div class="video">
                     <video width="100%" height="80%" controls></video>
-                    <h1>Título</h1>
+                    <h1>Historia de la filosofía VI - Aristóteles(II)</h1>
                 </div>
                 <div class="video">
                     <video width="100%" height="80%" controls></video>
-                    <h1>Título</h1>
+                    <h1>Filosofía medieval - Tomás de Aquino y guillermo Occam</h1>
                 </div>
                 <div class="video">
                     <video width="100%" height="80%" controls></video>
-                    <h1>Título</h1>
+                    <h1>Filosofía moderna - Racionalismo(I) Descartes</h1>
                 </div>
                 <div class="video">
                     <video width="100%" height="80%" controls></video>
-                    <h1>Título</h1>
+                    <h1>Filosofía moderna - Empirismo(I) Hume</h1>
                 </div>
             </div>
         </section>
@@ -108,3 +113,5 @@
     <script src="JavaScript/main.js"></script>
 </body>
 </html>
+<?php
+}

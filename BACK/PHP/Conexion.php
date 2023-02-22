@@ -38,12 +38,16 @@
      * @param string $nombresCampos los nombres de los campos a insertar
      * @param string $valoresCampos los valores de los campos a insertar
      */
-    public function insertar($tabla, $nombresCampos, $valoresCampos) {
-        try{
-            $consulta = "INSERT INTO $tabla ($nombresCampos) VALUES (:valoresCampos);";
-            $resultado = $this->conectar()->prepare($consulta);
-            $resultado->execute(array("valoresCampos" => $valoresCampos));
+    public function insertar($tabla, $nombresCampos, $valoresCampos, $arrayExecute) {
 
+        //$correo, $contrasena, $tipo, $descripcion
+
+        try{
+            $consulta = "INSERT INTO $tabla ($nombresCampos) VALUES ($valoresCampos);";
+            $resultado = $this->conectar()->prepare($consulta);
+            //$resultado->execute();
+            $resultado->execute($arrayExecute);
+            
             return true;
 
         }catch(Exception $e){
@@ -64,10 +68,10 @@
             $resultado = $this->conectar()->prepare($consulta);
             $resultado->execute(array('id' => $id));
 
-            return "Borrado realizado con éxito";
+            return true;
 
         }catch(Exception $e){
-            return "Error al borrar";
+            return false;
         }
     }
 
@@ -82,20 +86,20 @@
     public function actualizar($tabla, $id, $nombreCampo, $valorCampo) {
 
         try{
-            $consulta = "UPDATE $tabla SET  $nombreCampo = ':valorCampo' WHERE ID = :id;";
+            $consulta = "UPDATE $tabla SET  $nombreCampo = :valorCampo WHERE ID = :id;";
             $resultado = $this->conectar()->prepare($consulta);
             $resultado->execute(array('valorCampo' => $valorCampo, 'id' => $id));
 
-            return "Actualización realizada con éxito";
+            echo "<p>Actualización realizada con éxito</p>";
 
         }catch(Exception $e){
-            return "Error de actualización";
+            echo "<p>Error de actualización</p>";
         }
     }
 
     /**
      * Función cuyo objetivo es leer filas de una tabla de la base de datos
-     * y devolver todos sus campos
+     * y devolver todos sus campos en un array
      * @author Aleksandra
      * @param string $tabla nombre de la tabla
      * @param string $id id de la fila por leer
@@ -110,12 +114,13 @@
             $resultado->execute(array('id' => $id));
 
             foreach($resultado as $elemento){
-                
 
-                $campos['id'] = $elemento['id'];
-                $campos['correo'] = $elemento['correo'];
-                $campos['contrasena'] = $elemento['contrasena'];
-                $campos['tipo'] = $elemento['tipo'];//cambiar por perfil
+                $nombresCampos = $this->getNombresCampos($tabla);
+
+                for($i = 0; $i < count($nombresCampos); $i++){
+                    $nombre = $nombresCampos[$i];
+                    $campos[$nombre] = $elemento[$nombre];
+                }
             }
 
             return $campos;
@@ -125,6 +130,26 @@
             echo "<p>La fila no existe leerporid</p>";
         }
 
+    }
+
+    /**
+     * Función cuyo objetivo es devolver un array con los nombres de los
+     * campos de una tabla
+     * @author Aleksandra Hodur
+     * @param String $tabla nombre de la tabla en la BD
+     */
+    public function getNombresCampos($tabla){
+
+        try{
+            $consulta = "DESCRIBE $tabla";
+            $resultado = $this->conectar()->prepare($consulta);
+            $resultado->execute();
+            $nombres = $resultado->fetchAll(PDO::FETCH_COLUMN);
+
+            return $nombres;
+        }catch(Exception $e){
+            echo "<p>Fallo en nombres campos</p>";
+        }
     }
 
     /**
@@ -147,7 +172,6 @@
             
             foreach($resultado as $elemento){
                 $id = $elemento['id'];
-                echo $id."id";
             }
 
         }catch(Exception $e){
