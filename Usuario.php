@@ -224,7 +224,6 @@ class Usuario {
         }
     }
 
-
     public function toString(){
         return "Id: " . $this->getId() . "\nCorreo: " . $this->getCorreo() .
         "\nContrasena: " . $this->getContrasena() . "\nTipo: " . $this->getTipo() . 

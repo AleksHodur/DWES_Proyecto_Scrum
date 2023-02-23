@@ -16,8 +16,8 @@ xmlhttp.onreadystatechange = function (){
             let alumno = alumnos[i];
             
             for(let atributo in alumno){
-                console.log("Atributo:");
-                console.dir(alumno[atributo]);
+                //console.log("Atributo:");
+                //console.dir(alumno[atributo]);
                 let columna = document.createElement('td');
                 //columna.style.border = 'solid 1px black';
                 columna.textContent = alumno[atributo];
