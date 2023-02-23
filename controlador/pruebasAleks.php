@@ -1,7 +1,7 @@
 <?php
 
-require_once "Conexion.php";
-require_once "Usuario.php";
+require_once "../modelo/Conexion.php";
+require_once "../modelo/Usuario.php";
 
 $correo = 'juan@gmail.com';
 $contrasena = 'hola';

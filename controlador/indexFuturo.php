@@ -3,8 +3,8 @@
  * @author Eduardo Carretero
  * llamamos a las clases que vamos a utilizar para la sesión
  */
-require_once 'UsuarioSesion.php';
-require_once 'Usuario.php';
+require_once '../modelo/UsuarioSesion.php';
+require_once '../modelo/Usuario.php';
 
 /**instanciamos las clases obteniendo los objetos correspondientes
  */

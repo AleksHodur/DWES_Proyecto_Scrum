@@ -6,8 +6,8 @@
  */
 session_start();
 
-require_once 'Conexion.php';
-require_once 'Usuario.php';
+require_once '../modelo/Conexion.php';
+require_once '../modelo/Usuario.php';
 
 /**instanciamos las clases obteniendo los objetos correspondientes
  */
@@ -92,8 +92,8 @@ if ((isset($_SESSION['token'])) && isset($_POST['token'])) {
   <head>
     <meta charset="utf-8"/>
     <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="CSS/reset.css">
-    <link rel="stylesheet" type="text/css" href="CSS/estilos.css">
+    <link rel="stylesheet" type="text/css" href="Estructura Web/CSS/reset.css">
+    <link rel="stylesheet" type="text/css" href="Estructura Web/CSS/estilos.css">
   </head>
   <body>
     <h1>Inicio de Sesión</h1>

@@ -3,7 +3,7 @@
  * @author  Eduardo Carretero
  * requiere la clase UsuarioSesion
  */
-require_once 'UsuarioSesion.php';
+require_once '../controlador/UsuarioSesion.php';
 /** 
  * @var object $usuarioSesion
  * instanciamos la clase y creamos el objeto

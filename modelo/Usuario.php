@@ -64,25 +64,59 @@ class Usuario {
         $this->descripcion = $descripcion;
     }
 
+    /**
+     * Función cuyo objetivo es insertar un nuevo Usuario en la BD llamando
+     * a la función insertar() de la clase Conexion y, seguidamente, asignarle esos
+     * mismos atributos al objeto llamando a la función asignarAtributos()
+     * 
+     * @author Aleksandra Hodur
+     * @param string $correo
+     * @param string $contrasena
+     * @param int $tipo
+     * @param string $descripcion
+     */
     public function insertar($correo, $contrasena, $tipo, $descripcion){
-        $conexion = new Conexion();
-        $nombresCampos = 'correo, contrasena, tipo, descripcion';
-        $valoresCampos = ":correo, :contrasena, :tipo, :descripcion";
-        $arrayExecute = array('correo' => $correo, 'contrasena' => $contrasena, 'tipo' => $tipo, 'descripcion' => $descripcion);
-        
-        $conexion->insertar('usuario', $nombresCampos, $valoresCampos, $arrayExecute);
-        $id = $conexion->buscarId('usuario', 'correo = :correo', array('correo' => $correo));
-        $this->asignarAtributos($id);
+        if(!$this->usuarioExiste($correo, false)){ //de este modo, no se podrán repetir los correos
+            //$conexion = new Conexion();
+            $nombresCampos = 'correo, contrasena, tipo, descripcion';
+            $valoresCampos = ":correo, :contrasena, :tipo, :descripcion";
+            $arrayExecute = array('correo' => $correo, 'contrasena' => $contrasena, 'tipo' => $tipo, 'descripcion' => $descripcion);
+            
+            Conexion::insertar('usuario', $nombresCampos, $valoresCampos, $arrayExecute);
+            $id = Conexion::buscarId('usuario', 'correo = :correo', array('correo' => $correo));
+            $this->asignarAtributos($id);
+
+            return true;
+        }else{
+            return false;
+        }
     }
 
+
+    /**
+     * Función cuyo objetivo es eliminar al usuario de la BD llamando a la
+     * función eliminar() de la clase Conexion
+     * 
+     * @author Aleksandra Hodur
+     */
     public function eliminar(){
-        $conexion = new Conexion();
-        $conexion->eliminar('usuario', $this->getId());
+        //$conexion = new Conexion();
+        Conexion::eliminar('usuario', $this->getId());
     }
 
+    /**
+     * Función cuyo objetivo es actualizar el usuario en la BD llamando a la función
+     * actualizar() de la clase Conexion. Seguidamente, comprueba el nombre del campo,
+     * y actualiza su atributo correspondiente en el objeto
+     * 
+     * @author Aleksandra
+     * @param string $nombreCampo nombre del campo que se desea cambiar
+     * @param string $valorCampo valor nuevo que se le desea asignar al campo
+     * 
+     */
     public function actualizar($nombreCampo, $valorCampo){
-        $conexion = new Conexion();
-        $conexion->actualizar('usuario', $this->getId(), $nombreCampo, $valorCampo);
+        //$conexion = new Conexion();
+        Conexion::actualizar('usuario', $this->getId(), $nombreCampo, $valorCampo);
 
         switch($nombreCampo){
             case 'id':
@@ -120,7 +154,7 @@ class Usuario {
      *con la función usuario existe llamamos al método estático leer que está en conexión para comprobar que esté dentro de la bdd
      */
     public function usuarioExiste($correo, $contrasena) {
-        $conexion = new Conexion();
+        //$conexion = new Conexion();
 
         if($contrasena){
             $condiciones = 'correo = :correo AND contrasena = :contrasena';
@@ -130,7 +164,7 @@ class Usuario {
             $arrayExecute = array("correo" => $correo);
         }
 
-        $id = $conexion->buscarId('usuario', $condiciones, $arrayExecute);
+        $id = Conexion::buscarId('usuario', $condiciones, $arrayExecute);
 
         if($id < 0) {
             //echo "Usuario no existe";
@@ -144,13 +178,15 @@ class Usuario {
 
     /**
      * Función cuyo objetivo es asignarle los atributos al objeto correspondientes con 
-     * la tabla usuario en la BD
+     * la tabla usuario en la BD. Llama a la función leerPorId() que lee una fila por su id
+     * y devuelve un array clave valor, donde la clave corresponde al nombre del campo
+     * y el valor, a su valor
      * @author Aleksandra Hodur
      * @param int $id el id del usuario en la BD
      */
     public function asignarAtributos($id){
-        $conexion = new Conexion();
-        $atributos = $conexion->leerPorId('usuario', $id);
+        //$conexion = new Conexion();
+        $atributos = Conexion::leerPorId('usuario', $id);
         $error = false;
 
         if(isset($atributos['id'])){
@@ -185,30 +221,6 @@ class Usuario {
 
         if($error){
             echo "Error en la asignación de atributos";
-        }
-    }
-
-    /** 
-     * @author Rubén Torres
-    */
-    /**
-     * Summary of setUsuario
-     * @param string $correo
-     * @param string $contrasena
-     * @param string $tipoUsuario
-     * @return void
-     * Con este setter insertamos los datos del usuario en la bdd
-     */
-    public function setUsuario($correo, $contrasena, $tipoUsuario) {
-       // $arrayExecute = 'array("valoresCampos" =>$valoresCampo)';
-       $conexion = new Conexion();
-        $resultado = $conexion->insertar('usuario', 'correo, contrasena, tipo', $correo . ', ' . $contrasena . ', ' . $tipoUsuario);
-
-        if ($resultado) {
-            echo "Se ha creado el usuario";
-
-        } else {
-            echo "Error al crear el usuario";
         }
     }
 
